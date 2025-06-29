@@ -1,0 +1,112 @@
+/* Signup Page Specific Styles */
+.container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #b0dbb2;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.logo {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #4a6bff;
+}
+
+.logo-text {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-left: 10px;
+  color: #333;
+}
+
+/* Form elements */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.form-group input:not([type="radio"]),
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* Gender radio buttons */
+.gender-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.gender-option {
+  display: flex;
+  align-items: center;
+}
+
+.gender-option input {
+  margin-right: 8px;
+}
+
+/* Submit button */
+.btn {
+  background: #4a6bff;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+  width: 100%;
+}
+
+.btn:hover {
+  background: #3a5bef;
+}
+
+/* Error messages */
+.errorlist {
+  color: #ff4a4a;
+  margin-top: 0.5rem;
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Link styling */
+.subtitle {
+  text-align: center;
+  margin: 1rem 0 2rem;
+  color: #666;
+}
+
+.subtitle a {
+  color: #4a6bff;
+  text-decoration: none;
+}
+
+.subtitle a:hover {
+  text-decoration: underline;
+}
+
+h1{
+    text-align: center;
+}
