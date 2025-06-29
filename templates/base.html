@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Digital Wallet{% endblock %}</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <!-- header -->
+    <header>
+        <div class="logo">
+        <img src="{% static 'images/logo.jpeg' %}" alt="WebPay logo" >
+        </div>
+        <nav class="nav-links">
+            <a href="{% url 'wallet:index' %}">Home</a>
+            <a href="{% url 'wallet:aboutus' %}">About Us</a>
+            <a href="{% url 'wallet:services' %}">Services</a>
+            <a href="{% url 'wallet:contact' %}">Contact</a>
+            <a href="{% url 'users:signup' %}"><button class="btn">SIGNUP/LOGIN</button></a>
+        </nav>
+    </header>
+
+    <!-- main content -->
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- footer -->
+    <footer>
+       <div class="footer-up">
+            <nav class="footer-nav-links">
+                <a href="{% url 'wallet:index' %}">Home</a>
+                <a href="{% url 'wallet:aboutus' %}">AboutUs</a>
+                <a href="{% url 'wallet:services' %}">Services</a>
+                <a href="{% url 'wallet:policies' %}">Policies</a>
+                <a href="{% url 'wallet:help' %}">Help</a>
+            </nav>
+            <div class="logo_footer">
+                <img src="{% static 'images/logo_footer.jpg' %}" alt="WebPay logo" >
+            </div>
+       </div>
+        <hr>
+        <div class="footer-down">
+            <div>
+            <h2>Contact us</h2>
+            <p>Phone: +977-1-5551234 |Email: support@webpay.com</p>
+            </div>
+            <nav>
+                <a href="{% url 'users:signup' %}"><button class="btn">JOIN US</button></a>
+            </nav>
+        </div>
+        <p style="font-size: x-small;">&copy; {% now "Y" %} WebPay. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
