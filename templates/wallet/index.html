@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Digital Wallet - Home{% endblock %}
+
+{% block content %}
+    <main>
+        <section class="hero">
+            <div class="section-content">
+                <div class="text-content">
+                    <p class="subtitle">WebPay</p>
+                    <h1>Secure Payments,<br>Your Way!</h1>
+                    <a href="{% url 'users:signup' %}"><button class="btn">Get Started</button></a>
+                </div>
+                <div class="image-content">
+                    <img src="{% static 'images/1stImg.jpg' %}" alt="Secure payment Image">
+                </div>
+            </div>
+        </section>
+        <section class="feature">
+        <div class="section-content-reverse">
+            <div class="text-content">
+                <h2>Send Money and Receive<br>Money in Seconds!</h2>
+            </div>
+            <div class="image-content">
+                <img src="{% static 'images/2ndImg.jpg' %}" alt="Image of a man with multiple currencies">
+            </div>
+        </div>
+    </section>
+     <section class="feature">
+        <div class="section-content">
+            <div class="text-content">
+                <h2>Pay Anywhere with<br>WebPay QR Codes!</h2>
+            </div>
+            <div class="image-content">
+                <img src="{% static 'images/3rdImg.jpg' %}" alt="Image of a man paying with E-wallet">
+            </div>
+        </div>
+    </section>
+    <section class="feature">
+        <div class="section-content-reverse">
+            <div class="text-content">
+                <h2>24/7 Support -<br>We’re Here for You!</h2>
+            </div>
+            <div class="image-content">
+                <img src="{% static 'images/4thImg.jpg' %}" alt="Image of a woman with pc">
+            </div>
+        </div>
+    </section>
+    </main>
+   
+{% endblock %}
