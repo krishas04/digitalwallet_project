@@ -52,30 +52,24 @@ main {
 }
 footer hr{
     border: 0;
-    border-top: 1px solid #558d57;
-    margin: 10px 0;
+    margin: 20px 0;
     height: 1px;
     background: #558d57;
 }
 footer{
-    display: flex;
     background-color:#100f0d ;
     padding: 10px 0;
-    text-align: left;
     color: #558d57;
-    flex-direction: column;
-    width: 100%;
     box-sizing: border-box;
     flex-shrink: 0;
 }
 .footer-nav-links{
     display: flex;
-    gap: 30px;
+    gap: 250px;
 }
 footer .footer-nav-links a{
     text-decoration: none;
     color: #558d57;
-    width: 100%;
 }
 footer .footer-nav-links a:hover{
     color: #b0dbb2;
@@ -85,16 +79,14 @@ footer .footer-nav-links a:hover{
     justify-content: space-between; 
     align-items: center; 
     padding: 0 20px; 
-    width: 100%;
-    box-sizing: border-box;
+    
 }
 .footer-down {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px; 
-    width: 100%;
-    box-sizing: border-box;
+    
 }
 .footer-down nav .btn {
     background-color:#558d57;
