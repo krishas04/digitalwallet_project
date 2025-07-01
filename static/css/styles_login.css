@@ -1,0 +1,176 @@
+/* styles_login.css */
+
+/* General Body Styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 40px;
+    /* Center the content on the page */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Main WebPay Logo Header */
+.header {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+
+}
+
+.logo-image {
+    height: 60px;
+    display: block;
+    /* Ensures it sits correctly on its own line */
+}
+
+/* Main Form Container (The green box) */
+.container {
+    max-width: 480px;
+    width: 100%;
+    padding: 40px;
+    background-color: #e6f1e7;
+    /* Color picked from the new image */
+    border: 1px solid #000000;
+    box-sizing: border-box;
+}
+
+.logo-placeholder {
+    display: none;
+}
+
+
+/* Typography */
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #000000;
+}
+
+.subtitle {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 0.9em;
+    color: #333;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+/* --- UPDATED INPUT FIELDS --- */
+/* This rule now targets all relevant input types to ensure they are identical */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #000000;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    font-size: 1em;
+    border-radius: 2px;
+}
+
+/* Style for placeholder text to match the image */
+::placeholder {
+    color: #a0a0a0;
+    opacity: 1;
+    /* Override Firefox's default opacity */
+    font-size: 0.9em;
+}
+
+
+/* Links */
+.forgot-password {
+    text-align: right;
+    margin-bottom: 30px;
+}
+
+.forgot-password a {
+    color: #618962;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.9em;
+}
+
+.signup-link a {
+    color: #43a047;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.forgot-password a:hover,
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+/* Submit Button */
+.text-center {
+    text-align: center;
+}
+
+.btn {
+    background-color: #4caf50;
+    color: #ffffff;
+    padding: 14px 60px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+}
+
+.btn:hover {
+    background-color: #43a047;
+}
+
+/* Error and Message Styling */
+.messages .alert,
+.form-errors {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.messages .alert {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.form-errors {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.form-errors p {
+    margin: 0;
+}

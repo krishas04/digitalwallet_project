@@ -1,7 +1,26 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebPay - Dashboard</title>
+    {% load static %}
+   
+</head>
+<body>
+    <div class="header">
+        <img src="{% static 'images/logo.jpg' %}" alt="WebPay Logo" class="logo-image">
+    </div>
 
-{% block content %}
-<h1>Dashboard</h1>
-<p>Welcome, {{ user.first_name }}!</p>
-<p>This page will be implemented by your friend in the wallet app.</p>
-{% endblock %}
+    <div class="dashboard-container">
+        <h1>Dashboard</h1>
+        <p>Welcome, {{ user.first_name|default:user.username }}!</p>
+        <p>This page will be implemented by your friend in the wallet app.</p>
+        
+        <div class="logout-section">
+            <a href="{% url 'users:logout' %}" class="btn-logout">Logout</a>
+        </div>
+    </div>
+
+</body>
+</html>
