@@ -1,3 +1,4 @@
+
 import random #otp
 from django.utils import timezone #otp
 from django.contrib.auth.models import AbstractUser
@@ -30,3 +31,4 @@ class CustomUser(AbstractUser):
         self.otp_expiry = timezone.now() + timezone.timedelta(minutes=5) # OTP is valid for 5 minutes
         self.save()
         return self.otp
+

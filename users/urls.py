@@ -11,3 +11,4 @@ urlpatterns = [
     path("dashboard/", views.dashboard_view, name="dashboard"),
     path("logout/", views.logout_view, name="logout"),
 ]
+
