@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+# from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
+
 
 def index(request):
     #  return HttpResponse('<h1>Welcome to Homepage</h1>')
@@ -19,3 +21,7 @@ def policies(request):
 
 def help(request):
     return render(request,'wallet/help.html')
+
+@login_required
+def dashboard_view(request):
+    return render(request, "wallet/dashboard.html", {"user": request.user})

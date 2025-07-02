@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}WebPay{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles_dashboard.css' %}">
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <!-- ======================= HEADER ======================= -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <img src="{% static 'images/logo.png' %}" alt="WebPay Logo" class="logo">
+            </div>
+            <div class="header-center">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search">
+                    <button type="submit"></button> <!-- Search Icon -->
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="user-menu">
+                    <img src="{% static 'images/user-icon.png' %}" alt="User Icon">
+                    <span>{{ user.username }}</span>
+                    <span class="arrow-down">▾</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ======================= MAIN BODY WRAPPER ======================= -->
+        <div class="dashboard-body">
+            <!-- ======================= LEFT NAVIGATION ======================= -->
+            <nav class="left-nav">
+                <div class="nav-main-menu">
+                    <h2 class="menu-title">Main Menu</h2>
+                    <a href="{% url 'wallet:dashboard' %}" class="nav-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Dashboard</a>
+                    <a href="#" class="nav-item {% if request.resolver_match.url_name == 'services' %}active{% endif %}">Services</a>
+                    <a href="#" class="nav-item">Wallet</a>
+                    <a href="#" class="nav-item">Transaction History</a>
+                    <a href="#" class="nav-item {% if request.resolver_match.url_name == 'account' %}active{% endif %}">Account</a>
+                    <a href="#" class="nav-item">Settings</a>
+                    <a href="#" class="nav-item">Help and Support</a>
+                </div>
+                <div class="nav-logout">
+                    <a href="#" class="nav-item">Log out</a>
+                </div>
+            </nav>
+
+            <!-- ======================= MAIN CONTENT AREA ======================= -->
+            <main class="main-content">
+                {% block content %}
+                    <!-- The content from child templates like dashboard.html will appear here -->
+                {% endblock %}
+            </main>
+
+            <!-- ======================= RIGHT SIDEBAR ======================= -->
+            <aside class="right-sidebar">
+                <div class="balance-card">
+                    <p class="balance-title">Your Total Balance</p>
+                    <h3 class="balance-amount">Rs.10,000.50</h3>
+                    <p class="balance-timestamp">June 22, 2025 . 2:30 am</p>
+
+                    <div class="sub-balance">
+                        <p class="balance-title">Main Balance</p>
+                        <div class="sub-balance-value"></div>
+                    </div>
+                    <div class="sub-balance">
+                        <p class="balance-title">Bonus Balance</p>
+                        <div class="sub-balance-value"></div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</body>
+</html>

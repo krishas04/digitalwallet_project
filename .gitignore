@@ -1,36 +1,39 @@
-# Virtual environment
-venv/
-.env/
 
-# Python/Django
+# --- Secrets ---
+# Ignore the file containing environment variables and secrets. THIS IS CRITICAL.
+.env
+
+# --- Python ---
+# Ignore Python bytecode and cache folders
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
-*.py[cod]
 
-# SQLite database file
+# --- Virtual Environment ---
+# Ignore the virtual environment folder (e.g., venv, env, .venv)
+venv/
+env/
+.venv/
+
+# --- Database ---
+# Ignore the development database file.
+# In a real production app, you'd use a managed database, not a file.
 db.sqlite3
+*.sqlite3
 
-# Django
-*.log
-local_settings.py
-*.pot
-
-# Static and media files (managed by Django collectstatic)
-static/
+# --- Static and Media Files ---
+# Ignore the directory where collectstatic puts all static files
+staticfiles/
+# Ignore user-uploaded media files (they should be stored separately, e.g., on S3)
 media/
 
-# IDE/editor files
+# --- IDE / Editor specific files ---
+# Ignore settings from popular editors
+.vscode/
 .idea/
 *.sublime-project
 *.sublime-workspace
-*.vscode/
 
-# OS generated files
-.DS_Store
+# --- OS-generated files ---
+
+# Windows
 Thumbs.db
-
-# Other
-*.swp
-*~
