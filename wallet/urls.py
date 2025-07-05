@@ -12,9 +12,4 @@ urlpatterns = [
     path("policies/", views.policies, name="policies"),
     path("help/", views.help, name="help"),
     path("dashboard/", views.dashboard_view, name="dashboard"),
-    path("load-money/", views.load_money_view, name="load_money"),  # <-- ADD THIS LINE
-    # New URL to start the payment process
-    path("initiate-khalti/", views.initiate_khalti_payment, name="initiate_khalti"),
-    # New URL for Khalti to redirect back to
-    path("khalti-callback/", khalti_payment_callback, name="khalti_callback"),
 ]

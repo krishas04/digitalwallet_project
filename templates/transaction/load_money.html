@@ -16,7 +16,7 @@
     {% endif %}
 
     <!-- This is now a simple HTML form -->
-    <form action="{% url 'wallet:initiate_khalti' %}" method="POST" style="margin-top: 30px;">
+    <form action="{% url 'transaction:initiate_khalti' %}" method="POST" style="margin-top: 30px;">
         {% csrf_token %}
         <div class="form-group" style="margin-bottom: 15px;">
             <label for="load-amount" style="display: block; margin-bottom: 5px;">Amount (Rs.)</label>
