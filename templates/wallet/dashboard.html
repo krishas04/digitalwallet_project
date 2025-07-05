@@ -1,9 +1,75 @@
-{% extends "base_dashboard.html" %}
-
-{% block title %}Dashboard - WebPay{% endblock %}
+{% extends 'base_dashboard.html' %}
+{% load static %}
 
 {% block content %}
-    <h1>Dashboard</h1>
-    <p>Welcome back, {{ user.username }}! Here is your account overview.</p>
-    <!-- You can add charts, summary cards, and quick links here -->
+<!-- ADD THIS SECTION AT THE TOP -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" style="padding: 10px; margin-bottom: 20px; border-radius: 5px; color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb;">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+<!-- END OF MESSAGE SECTION -->
+<div class="welcome-message">
+    <h2>Welcome to Webpay!</h2>
+    <p>Hi, {{ user.username }}. Welcome Back.</p>
+</div>
+
+<!-- ======================= OUR SERVICES (MODIFIED) ======================= -->
+<div class="services-card">
+    <h3 class="section-title">Our Services</h3>
+    <div class="services-grid">
+        <!-- MODIFIED: Changed from a div to a link (<a> tag) -->
+        <a href="{% url 'wallet:load_money' %}" class="service-item">
+            <img src="{% static 'images/loadmoney.jpg' %}" alt="Load Money" title="Load Money">
+            <span>Load money</span>
+        </a>
+
+        <!-- Other service items remain the same -->
+        <div class="service-item"><img src="{% static 'images/transfer-money-icon.png' %}" alt=""><span>Transfer money</span></div>
+        <div class="service-item"><img src="{% static 'images/bill-payment-icon.png' %}" alt=""><span>Bill payment</span></div>
+        <div class="service-item"><img src="{% static 'images/qr-payment-icon.png' %}" alt=""><span>QR payment</span></div>
+        <div class="service-item"><img src="{% static 'images/cash-back-icon.png' %}" alt=""><span>Cash Back</span></div>
+    </div>
+    <!-- REMOVED: The hidden form container is no longer needed here. -->
+</div>
+
+<!-- ======================= TRANSACTION HISTORY (Unchanged) ======================= -->
+<div class="transaction-history-card">
+    <div class="card-header">
+        <h3 class="section-title">Transaction History</h3>
+        <a href="#" class="view-all-link">View all</a>
+    </div>
+    <ul class="transaction-list">
+        {% for tx in recent_transactions %}
+        <li class="transaction-item">
+            <div class="tx-info">
+                 {% if tx.status == 'COMPLETED' %}
+                    <div class="tx-icon success"><img src="{% static 'images/success-icon.png' %}" alt="Success"></div>
+                {% elif tx.status == 'FAILED' %}
+                     <div class="tx-icon failed"><img src="{% static 'images/failed-icon.png' %}" alt="Failed"></div>
+                {% else %}
+                     <div class="tx-icon pending"><img src="{% static 'images/pending-icon.png' %}" alt="Pending"></div>
+                {% endif %}
+                <div class="tx-details">
+                    <p class="tx-description">{{ tx.description }}</p>
+                    <p class="tx-timestamp">{{ tx.timestamp|date:"F j, Y, g:i a" }}</p>
+                </div>
+            </div>
+            <div class="tx-amount">Rs. {{ tx.amount|floatformat:2 }}</div>
+            <div class="tx-status status-{{ tx.status|lower }}">{{ tx.status }}</div>
+        </li>
+        {% empty %}
+        <li class="transaction-item">
+            <p>No recent transactions found.</p>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- REMOVED: All the Khalti JavaScript has been moved to load_money.html -->
+<!-- This block is now empty on the dashboard page, or can be used for other dashboard-specific scripts. -->
 {% endblock %}

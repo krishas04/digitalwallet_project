@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}WebPay{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles_dashboard.css' %}">
+    
 </head>
 <body>
 
@@ -56,24 +57,26 @@
                 {% endblock %}
             </main>
 
-            <!-- ======================= RIGHT SIDEBAR ======================= -->
             <aside class="right-sidebar">
                 <div class="balance-card">
                     <p class="balance-title">Your Total Balance</p>
-                    <h3 class="balance-amount">Rs.10,000.50</h3>
-                    <p class="balance-timestamp">June 22, 2025 . 2:30 am</p>
+                    <!-- Use the context variable here -->
+                    <h3 class="balance-amount">Rs. {{ wallet_balance|floatformat:2 }}</h3>
+                    <p class="balance-timestamp">{{ "now"|date:"F j, Y . g:i a" }}</p>
 
                     <div class="sub-balance">
                         <p class="balance-title">Main Balance</p>
-                        <div class="sub-balance-value"></div>
+                        <!-- Also use the context variable here -->
+                        <div class="sub-balance-value">Rs. {{ wallet_balance|floatformat:2 }}</div>
                     </div>
                     <div class="sub-balance">
                         <p class="balance-title">Bonus Balance</p>
-                        <div class="sub-balance-value"></div>
+                        <div class="sub-balance-value">Rs. 0.00</div>
                     </div>
                 </div>
             </aside>
         </div>
     </div>
+    {% block extra_js %}{% endblock %}
 </body>
 </html>
