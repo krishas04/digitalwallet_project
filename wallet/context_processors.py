@@ -1,3 +1,4 @@
+
 # wallet/context_processors.py
 
 from transactions.models import Transaction
@@ -32,4 +33,3 @@ def wallet_context(request):
             pass
     
     return context
-
