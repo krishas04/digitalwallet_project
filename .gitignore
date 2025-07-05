@@ -37,3 +37,6 @@ media/
 
 # Windows
 Thumbs.db
+
+# SQLite
+db.sqlite3

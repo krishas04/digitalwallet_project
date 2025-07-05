@@ -147,35 +147,13 @@ def khalti_payment_callback(request):
 
 @login_required
 def transaction_history_view(request):
-    """
-    Fetches and displays the complete transaction history for the logged-in user
-    with pagination.
-    """
-    # Fetch all transaction objects for the current user, ordered by most recent first.
-    # This is now a base queryset that we will paginate.
-    transaction_list = Transaction.objects.filter(user=request.user).order_by('-timestamp')
+    # --- FIX IS HERE ---
+    # Use the correct lookup to filter transactions by the logged-in user's wallet
+    transactions = Transaction.objects.filter(
+        wallet__user=request.user
+    ).order_by('-timestamp')
     
-    # Set up the Paginator: 25 transactions per page.
-    paginator = Paginator(transaction_list, 25) 
-    
-    # Get the page number from the GET request's 'page' parameter.
-    # e.g., /transactions/?page=2
-    page_number = request.GET.get('page')
-    
-    try:
-        # Get the Page object for the requested page number.
-        transactions_on_page = paginator.page(page_number)
-    except PageNotAnInteger:
-        # If the 'page' parameter is not an integer, show the first page.
-        transactions_on_page = paginator.page(1)
-    except EmptyPage:
-        # If the page is out of range (e.g., page 9999), show the last page.
-        transactions_on_page = paginator.page(paginator.num_pages)
-    
-    # The context now passes the 'Page' object to the template.
-    # The template loop will iterate over the transactions on this specific page.
     context = {
-        'transactions': transactions_on_page
+        'transactions': transactions
     }
-    
     return render(request, 'transaction/transaction_history.html', context)

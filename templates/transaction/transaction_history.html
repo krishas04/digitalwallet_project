@@ -17,7 +17,7 @@
         {# THE FIX: We now loop over 'transactions' which should contain all records, not just recent ones. #}
         {% for tx in transactions %}
             <li class="transaction-item">
-            {% if tx.transaction_type == 'DEPOSIT' %}
+            {% if tx.transaction_type == 'LOAD' %}
                 <img src="{% static 'icons/deposit.jpg' %}" alt="Deposit icon" class="transaction-icon">
             {% elif tx.transaction_type == 'WITHDRAWAL' %}
                 <img src="{% static 'icons/withdrawal.jpg' %}" alt="Withdrawal icon" class="transaction-icon">
