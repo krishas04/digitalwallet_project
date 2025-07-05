@@ -15,6 +15,11 @@ from pathlib import Path
 
 from dotenv import load_dotenv # Added this import for .env file
 
+# PayPal Settings
+PAYPAL_CLIENT_ID = os.getenv("PAYPAL_CLIENT_ID")
+PAYPAL_CLIENT_SECRET = os.getenv("PAYPAL_CLIENT_SECRET")
+PAYPAL_API_BASE_URL = os.getenv("PAYPAL_API_BASE_URL")
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -46,11 +51,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'transactions',
     #2FA Apps
     "django_otp",
     "django_otp.plugins.otp_static",
     "wallet",
     "users.apps.UsersConfig",
+
 
 ]
 
@@ -85,6 +92,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'wallet.context_processors.wallet_context', #add this for context_processors.py
 
             ],
         },
@@ -174,3 +182,11 @@ MESSAGE_TAGS = {
     messages.WARNING: "warning",
     messages.ERROR: "error",
 }
+
+# Set the time zone for your project
+TIME_ZONE = 'Asia/Kathmandu'
+
+USE_I18N = True
+
+# IMPORTANT: Make sure this is True
+USE_TZ = True 

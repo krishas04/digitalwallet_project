@@ -1,0 +1,65 @@
+{% extends "base_dashboard.html" %}
+{% load static %}
+
+{% block title %}Support & Help Center - WebPay{% endblock %}
+
+{% block content %}
+
+<!-- Header -->
+<div class="welcome-header">
+    <h1>Support & Help Center</h1>
+    <p>We're here to help. Find answers to your questions below.</p>
+</div>
+
+<!-- FAQ Section Card -->
+<section class="dashboard-card">
+    <h2 class="card-title">Frequently Asked Questions (FAQ)</h2>
+    <div class="faq-list">
+        
+        <!-- FAQ Item 1 -->
+        <details class="faq-item">
+            <summary>How do I add money to my wallet?</summary>
+            <div class="faq-answer">
+                <p>You can add money easily from the dashboard. Click on the "Load Money" service, enter the amount you wish to add, and follow the on-screen instructions to complete the payment from your linked bank account or card.</p>
+            </div>
+        </details>
+
+        <!-- FAQ Item 2 -->
+        <details class="faq-item">
+            <summary>Is my money safe with WebPay?</summary>
+            <div class="faq-answer">
+                <p>Absolutely. We use industry-standard encryption and security protocols to protect your account and transactions. Your financial data is never stored on our servers, and we monitor for suspicious activity 24/7.</p>
+            </div>
+        </details>
+
+        <!-- FAQ Item 3 -->
+        <details class="faq-item">
+            <summary>How do I reset my password?</summary>
+            <div class="faq-answer">
+                <p>If you've forgotten your password, you can reset it by clicking the "Forgot Password?" link on the login page. We will send a secure link to your registered email address to help you set a new one.</p>
+            </div>
+        </details>
+
+        <!-- FAQ Item 4 -->
+        <details class="faq-item">
+            <summary>What should I do if a transaction fails?</summary>
+            <div class="faq-answer">
+                <p>First, check your Transaction History to see the status. If a transaction has failed, any deducted amount will be automatically refunded to your account within 3-5 business days. If the issue persists, please contact our support team with the transaction ID.</p>
+            </div>
+        </details>
+
+    </div>
+</section>
+
+<!-- Contact Us Card -->
+<section class="dashboard-card">
+    <h2 class="card-title">Contact Us</h2>
+    <p>Can't find the answer you're looking for? Get in touch with our support team.</p>
+    <p>Phone: +977-1-5551234 |Email: support@webpay.com</p>
+</section>
+
+{% endblock %}
+
+{% block right_sidebar %}
+    <!-- This block is intentionally left empty to maintain a consistent layout with the dashboard -->
+{% endblock %}

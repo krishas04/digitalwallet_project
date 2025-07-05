@@ -1,9 +1,103 @@
 {% extends "base_dashboard.html" %}
+{% load static %}
+{% load tz %} {# Add this at the top of your template file if it's not there #}
 
 {% block title %}Dashboard - WebPay{% endblock %}
 
 {% block content %}
-    <h1>Dashboard</h1>
-    <p>Welcome back, {{ user.username }}! Here is your account overview.</p>
-    <!-- You can add charts, summary cards, and quick links here -->
+
+<!-- Welcome Message -->
+<div class="welcome-header">
+    <h1>Welcome to Webpay!</h1>
+    <p>Hi, {{ user.first_name|default:user.username }}, Welcome Back.</p>
+</div>
+
+<!-- Services Card -->
+<section class="dashboard-card">
+    <h2 class="card-title">Our Services</h2>
+    <div class="services-grid">
+        <a href="{% url 'transactions:load-money' %}" class="service-item">
+            <img src="{% static 'icons/loadmoney.jpg' %}" alt="Load Money" class="service-icon">
+            <span>Load money</span>
+        </a>
+        <a href="#" class="service-item">
+            <img src="{% static 'icons/transfermoney.jpg' %}" alt="Transfer Money" class="service-icon">
+            <span>Transfer money</span>
+        </a>
+        <a href="#" class="service-item">
+            <img src="{% static 'icons/billpayment.jpg' %}" alt="Bill Payment" class="service-icon">
+            <span>Bill payment</span>
+        </a>
+        <a href="#" class="service-item">
+            <img src="{% static 'icons/qrpayment.jpg' %}" alt="QR Payment" class="service-icon">
+            <span>QR payment</span>
+        </a>
+        <a href="#" class="service-item">
+            <img src="{% static 'icons/cashback.jpg' %}" alt="Cash Back" class="service-icon">
+            <span>Cash Back</span>
+        </a>
+    </div>
+    <div class="card-footer">
+         <a href="#"><button class="btn">Explore All Services</button></a>
+        </div>
+</section>
+
+<!-- Transaction History Card -->
+<section class="dashboard-card">
+    <div class="transaction-header">
+        <h2 class="card-title">Transaction History</h2>
+        <div class="transaction-cols">
+            <span><h3>Amount</h3></span>
+            <span><h3>Status</h3></span>
+        </div>
+    </div>
+    <ul class="transaction-list">
+            {% for tx in recent_transactions %}
+                <li class="transaction-item">
+                {% if tx.transaction_type == 'DEPOSIT' %}
+                    <img src="{% static 'icons/deposit.jpg' %}" alt="Deposit icon" class="transaction-icon">
+                {% elif tx.transaction_type == 'WITHDRAWAL' %}
+                    <img src="{% static 'icons/withdrawal.jpg' %}" alt="Withdrawal icon" class="transaction-icon">
+                {% elif tx.transaction_type == 'TRANSFER' %}
+                    <img src="{% static 'icons/transfer.jpg' %}" alt="Transfer icon" class="transaction-icon">
+                {% else %}
+                {# Fallback for any other or future transaction types #}
+                    <img src="{% static 'icons/unknown.jpg' %}" alt="Transaction icon" class="transaction-icon">
+                {% endif %}
+               <div class="transaction-details">
+                        <!-- Displaying the type of transaction -->
+                        <strong>{{ tx.get_transaction_type_display }}</strong> 
+                        <small>{{ tx.timestamp|date:"F j, Y . g:i a" }}</small>
+                    </div>
+                    <div class="transaction-amount">Rs. {{ tx.amount|floatformat:2 }}</div>
+                    <div class="transaction-status status-{{ tx.status|lower }}">{{ tx.status }}</div>
+                </li>
+            {% empty %}
+                <li class="transaction-item">
+                    <p>You have no recent transactions.</p>
+                </li>
+            {% endfor %}
+        </ul>
+    <div class="card-footer">
+         <a href="{% url 'transactions:transaction-history' %}"><button class="btn">View All</button></a>
+     </div>
+</section>
+
+<!-- Special Offers Card -->
+<section class="dashboard-card offer-card">
+    <div class="offer-content">
+        <div class="offer-text">
+            <h2 class="card-title">Special Offers</h2>
+            <p class="offer-main-text">Get <span class="percentage">5%</span> cashback on your next bill payment !</p>
+        </div>
+        <div class="offer-image">
+            <img src="{% static 'images/offer.jpg' %}" alt="Cashback Offer">
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block right_sidebar %}
+    <!-- This block is intentionally left empty to allow the main content to take up full width -->
 {% endblock %}

@@ -1,0 +1,41 @@
+<!-- templates/transactions/load_money.html -->
+{% extends "base_dashboard.html" %}
+
+{% block title %}Load Money - WebPay{% endblock %}
+
+{% block content %}
+    <h1>Load Money into Your Wallet</h1>
+    <p>Enter the amount you wish to add to your main balance.</p>
+
+    <!-- Display messages from the view (success or error) -->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="dashboard-card" style="max-width: 500px;">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.amount.id_for_label }}">Amount (Rs.)</label>
+                {{ form.amount }}
+                {% if form.amount.errors %}
+                    <div class="error-list">
+                        {% for error in form.amount.errors %}
+                            <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <br>
+            <button type="submit" class="btn btn-green-outline" style="width: 100%;">Proceed to Payment</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block right_sidebar %}
+    <!-- Leaving this empty to keep the focus on the form -->
+{% endblock %}

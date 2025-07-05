@@ -22,6 +22,10 @@ def policies(request):
 def help(request):
     return render(request,'wallet/help.html')
 
+def support_view(request):
+    return render(request, "wallet/support.html")
+
 @login_required
 def dashboard_view(request):
     return render(request, "wallet/dashboard.html", {"user": request.user})
+

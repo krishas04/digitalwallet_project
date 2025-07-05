@@ -1,9 +1,8 @@
-body, html {
+body{
     margin: 0;
     padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: #f8f9fa;
-    color: #212529;
+    background-color: #f8f8f8;
     height: 100%;
 }
 
@@ -19,8 +18,7 @@ body, html {
     justify-content: space-between;
     align-items: center;
     padding: 10px 25px;
-    background-color: #d7e9d8; /* Light green from image */
-    border-bottom: 1px solid #c8d3c9;
+    background-color: #b0dbb2; /* Light green from image */
     flex-shrink: 0; /* Prevents header from shrinking */
 }
 
@@ -31,24 +29,29 @@ body, html {
 }
 
 /* Header Elements */
-.logo {
-    height: 28px;
+.logo-image {
+    height: 30px;
 }
 .search-bar {
     display: flex;
 }
 .search-bar input {
-    padding: 6px 10px;
+    padding: 6px 5px;
     border: 1px solid #b0c0b1;
     border-right: none;
     min-width: 350px;
     font-size: 0.9em;
+    height: 30px;
 }
 .search-bar button {
-    padding: 6px 12px;
+    padding: 6px 5px;
     border: 1px solid #b0c0b1;
-    background-color: #fff;
+    background-color: white;
     cursor: pointer;
+    
+}
+.search-bar img{
+    height: 20px;
 }
 .user-menu {
     display: flex;
@@ -87,73 +90,266 @@ body, html {
     padding: 11px 20px;
     margin: 5px 15px;
     text-decoration: none;
-    color: #333;
     font-size: 0.9em;
-    background-color: #fff;
+    background-color: white;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     transition: background-color 0.2s ease;
+    color: black;
 }
 .nav-item:hover {
-    background-color: #f5f5f5;
+    background-color: #ececec;
+    color: black;
 }
 .nav-item.active {
-    background-color: #d3d3d3; /* Active gray color from image */
-    border-color: #b0b0b0;
+    background-color: #cecece; /* Active gray color from image */
+    border-color: gray;
     font-weight: 500;
+    color: black;
 }
 .nav-logout {
     padding-top: 15px;
     margin-top: 15px;
-    border-top: 1px solid #dcdcdc;
+    border-top: 1px solid #ececec;
+    color: black;
 }
 
 /* Main Content and Right Sidebar */
 .main-content {
     flex-grow: 1;
-    background-color: #e9e9e9;
+    background-color: #ececec;
     padding: 30px;
     overflow-y: auto; /* IMPORTANT: Enables scrolling for content only */
 }
 .right-sidebar {
     width: 300px;
     flex-shrink: 0;
-    background-color: #e9e9e9;
+    background-color: #ececec;
     padding: 30px 25px;
-    border-left: 1px solid #dcdcdc;
+    border-left: 1px solid #e0e0e0;
 }
 
 /* Balance Card (on Right Sidebar) */
 .balance-card {
-    background-color: #fff;
+    background-color: #f8f8f8;
     padding: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #e0e0e0;
     border-radius: 5px;
 }
 .balance-title {
     font-size: 0.85em;
-    color: #555;
+    color: #558d57;
     margin: 0 0 5px 0;
 }
 .balance-amount {
     font-size: 1.8em;
     font-weight: 600;
-    color: #2b7a2e;
+    color: #558d57;
     margin: 0;
 }
 .balance-timestamp {
     font-size: 0.8em;
-    color: #888;
+    color: #558d57;
     margin: 10px 0 25px 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ececec;
     padding-bottom: 15px;
 }
 .sub-balance {
     margin-bottom: 15px;
 }
 .sub-balance-value {
-    background-color: #f0f0f0;
+    background-color: #f8f8f8;
     height: 20px;
-    border: 1px solid #ddd;
+    border: 1px solid #ececec;
     border-radius: 3px;
+}
+
+/* General Card Styling */
+.dashboard-card {
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.card-title {
+    color: #558d57;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin: 0 0 20px 0;
+    padding-bottom: 10px;
+}
+.card-footer {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.btn {
+    background-color:#b0dbb2 ;
+    padding: 10px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    font-weight: bold;
+}
+.btn:hover{
+    background-color: #558d57;
+}
+/* Services Card */
+.services-grid {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    text-align: center;
+}
+.service-item {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100px; /* Gives each item a consistent width */
+}
+.service-item img {
+    height: 48px; /* Control icon size */
+    width: 48px;
+    object-fit: contain;
+}
+.service-item span {
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+/* Transaction History Card */
+.transaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.transaction-header .card-title {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+.transaction-cols {
+    display: flex;
+    gap: 60px;
+    font-size: 0.85em;
+    color: #666;
+    font-weight: 500;
+    padding-right: 50px;
+}
+.transaction-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.transaction-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 5px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.transaction-item:last-child {
+    border-bottom: none;
+}
+.transaction-icon {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.transaction-details {
+    flex-grow: 1;
+    margin-left: 15px;
+}
+.transaction-details strong {
+    display: block;
+    font-size: 0.95em;
+}
+.transaction-details small {
+    color: #777;
+    font-size: 0.8em;
+}
+.transaction-amount {
+    font-weight: 600;
+    width: 100px;
+    text-align: right;
+}
+.transaction-status {
+    width: 100px;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: 500;
+    margin-left: 20px;
+}
+.status-completed {
+    background-color: #e8f5e9;
+    color: #388e3c;
+}
+.status-failed {
+    background-color: #ffebee;
+    color: #d32f2f;
+}
+
+/* Special Offer Card */
+.offer-card .card-title {
+    border-bottom: none;
+}
+.offer-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.offer-text {
+    flex-basis: 50%;
+}
+.offer-main-text {
+    font-size: 2.2em;
+    line-height: 1.3;
+    font-weight: 300;
+}
+.offer-main-text .percentage {
+    font-weight: 700;
+    color: #2b7a2e;
+}
+.offer-image {
+    flex-basis: 50%;
+    text-align: center;
+}
+.offer-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Button Styles */
+.btn {
+    display: inline-block;
+    padding: 10px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+.btn-green-outline {
+    background-color: transparent;
+    border: 2px solid #4CAF50;
+    color: #4CAF50;
+}
+.btn-green-outline:hover {
+    background-color: #4CAF50;
+    color: #fff;
+}
+.transaction-details {
+    display: block;
+    padding: 11px 20px;
+    margin: 5px 15px;
+    text-decoration: none;
+    font-size: 0.9em;
+    background-color: #ececec;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
 }

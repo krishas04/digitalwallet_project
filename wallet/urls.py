@@ -11,4 +11,5 @@ urlpatterns=[
     path('policies/', views.policies, name='policies'),
     path('help/', views.help, name='help'),
     path("dashboard/", views.dashboard_view, name="dashboard"),
+    path("support/", views.support_view, name="support"),
 ]
