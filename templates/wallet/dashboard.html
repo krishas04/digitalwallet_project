@@ -28,10 +28,10 @@
             <img src="{% static 'icons/loadmoney.jpg' %}" alt="Load Money" class="service-icon">
             <span>Load money</span>
         </a>
-        <a href="#" class="service-item">
-            <img src="{% static 'icons/transfermoney.jpg' %}" alt="Transfer Money" class="service-icon">
-            <span>Transfer money</span>
-        </a>
+        <a href="{% url 'transaction:transfer_dispatcher' %}" class="service-item">
+    <img src="{% static 'icons/transfermoney.jpg' %}" alt="Transfer Money" class="service-icon">
+    <span>Transfer money</span>
+</a>
         <a href="#" class="service-item">
             <img src="{% static 'icons/billpayment.jpg' %}" alt="Bill Payment" class="service-icon">
             <span>Bill payment</span>

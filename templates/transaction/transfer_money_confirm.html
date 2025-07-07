@@ -1,0 +1,29 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content-card">
+    <h2 class="section-title">Confirm Your Transfer</h2>
+    <p>Enter your 4-digit PIN to authorize this transaction.</p>
+
+    <div class="transaction-summary" style="background-color: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; border-radius: 5px; margin: 20px 0;">
+        <p style="margin: 5px 0;"><strong>Sending to:</strong> {{ recipient_email }}</p>
+        <p style="margin: 5px 0;"><strong>Amount:</strong> <span style="font-size: 1.2em; font-weight: bold;">Rs. {{ amount|floatformat:2 }}</span></p>
+    </div>
+
+    {% if messages %}
+        ...
+    {% endif %}
+
+    <form action="{% url 'transaction:transfer_money_confirm' %}" method="POST" style="margin-top: 20px;">
+        {% csrf_token %}
+        <div class="form-group" style="margin-bottom: 20px;">
+            <label for="pin" style="display: block; margin-bottom: 5px; font-weight: bold;">Your 4-Digit PIN</label>
+            <input type="password" id="pin" name="pin" required maxlength="4" pattern="\d{4}" title="PIN must be 4 digits" autofocus style="padding: 12px; width: 100%; max-width: 400px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;">
+        </div>
+        
+        <button type="submit" ... >Confirm & Transfer</button>
+        <a href="{% url 'transaction:transfer_money_initiate' %}" ... >Cancel</a>
+    </form>
+</div>
+{% endblock %}

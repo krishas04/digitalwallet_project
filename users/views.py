@@ -4,9 +4,15 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.core.mail import send_mail
-from .forms import SignUpForm, LoginForm, OTPForm  # MODIFIED
+from django.contrib.auth.hashers import make_password  # Used for the new PIN view
+
+from .forms import SignUpForm, LoginForm, OTPForm
 from .models import CustomUser
 
+
+# ==============================================================================
+# --- AUTHENTICATION FLOW VIEWS (Existing Code) ---
+# ==============================================================================
 
 def signup_view(request):
     if request.user.is_authenticated:
@@ -35,9 +41,7 @@ def login_view(request):
         return redirect("wallet:dashboard")
 
     if request.method == "POST":
-        form = LoginForm(
-            request, data=request.POST
-        )  # MODIFIED: pass request to LoginForm
+        form = LoginForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
 
@@ -46,27 +50,25 @@ def login_view(request):
             send_mail(
                 "Your OTP Code",
                 f"Your One-Time Password is: {otp}",
-                "noreply@digitalwallet.com",  # from@example.com
+                "noreply@digitalwallet.com",
                 [user.email],
                 fail_silently=False,
             )
-            print(f"OTP for {user.username}: {otp}")  # For console backend viewing
+            print(f"OTP for {user.username}: {otp}")
 
             # Store user's pk in session to verify in the next step
             request.session["user_id_for_2fa"] = user.pk
             messages.info(request, "An OTP has been sent to your email.")
             return redirect("users:otp_verify")
         else:
-            messages.error(
-                request, "Invalid username or password."
-            )  # Simplified error message
+            messages.error(request, "Invalid username or password.")
     else:
         form = LoginForm()
 
     return render(request, "users/login.html", {"form": form})
 
 
-# NEW: View for OTP verification
+# View for OTP verification
 def otp_verify_view(request):
     user_id = request.session.get("user_id_for_2fa")
     if not user_id:
@@ -111,7 +113,52 @@ def otp_verify_view(request):
     return render(request, "users/otp_verify.html", {"form": form})
 
 
+# ==============================================================================
+# ## --- NEW --- ## TRANSACTION PIN MANAGEMENT VIEW
+# ==============================================================================
 
+@login_required
+def create_pin_view(request):
+    """
+    Handles the one-time creation of a user's transaction PIN.
+    This view is responsible for setting the user's PIN, which is a piece
+    of user-specific data, hence why it lives in the 'users' app.
+    """
+    # Get the URL to redirect to after successful PIN creation. This is passed
+    # by the view that sent the user here (e.g., the transfer dispatcher).
+    next_url = request.GET.get('next', 'wallet:dashboard')
+
+    if request.method == 'POST':
+        pin1 = request.POST.get('pin1')
+        pin2 = request.POST.get('pin2')
+
+        # --- Validation ---
+        if not pin1 or not pin2:
+            messages.error(request, "Please fill out both PIN fields.")
+        elif not pin1.isdigit() or not pin2.isdigit() or len(pin1) != 4:
+            messages.error(request, "Your PIN must be exactly 4 digits.")
+        elif pin1 != pin2:
+            messages.error(request, "The PINs you entered do not match. Please try again.")
+        else:
+            # --- If valid, hash and save the PIN ---
+            user = request.user
+            # We securely hash the PIN using Django's password hashing system.
+            # This means we don't store the plain PIN in the database.
+            user.transaction_pin = make_password(pin1)
+            user.save()
+            
+            messages.success(request, "Your transaction PIN has been created successfully!")
+            return redirect(next_url) # Redirect to the page they were originally trying to access
+
+    # This context is useful if you want to pass the 'next' URL to the template,
+    # although the form's action="" will preserve the GET parameter automatically.
+    context = {'next': next_url}
+    return render(request, 'users/create_pin.html', context)
+
+
+# ==============================================================================
+# --- LOGOUT VIEW (Existing Code) ---
+# ==============================================================================
 
 def logout_view(request):
     from django.contrib.auth import logout

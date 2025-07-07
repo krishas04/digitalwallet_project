@@ -1,0 +1,32 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content-card">
+    <h2 class="section-title">Create Your Transaction PIN</h2>
+    <p>For added security, please create a 4-digit PIN for authorizing transactions. You will only need to do this once.</p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" style="padding: 10px; margin: 10px 0; border-radius: 5px; background-color: #f8d7da; color:rgb(89, 219, 77); border: 1px solid #f5c6cb;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST" action="" style="margin-top: 30px;">
+        {% csrf_token %}
+        <div class="form-group" style="margin-bottom: 20px;">
+            <label for="pin1" style="display: block; margin-bottom: 5px; font-weight: bold;">Enter 4-Digit PIN</label>
+            <input type="password" id="pin1" name="pin1" required maxlength="4" pattern="\d{4}" title="PIN must be 4 digits" style="padding: 12px; width: 100%; max-width: 400px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;">
+        </div>
+        <div class="form-group" style="margin-bottom: 20px;">
+            <label for="pin2" style="display: block; margin-bottom: 5px; font-weight: bold;">Confirm 4-Digit PIN</label>
+            <input type="password" id="pin2" name="pin2" required maxlength="4" pattern="\d{4}" title="PIN must be 4 digits" style="padding: 12px; width: 100%; max-width: 400px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;">
+        </div>
+        <button type="submit" class="btn btn-success" style="padding: 12px 25px; background-color: #5cb85c; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold;">
+            Create PIN
+        </button>
+    </form>
+</div>
+{% endblock %}
