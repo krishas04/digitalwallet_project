@@ -42,11 +42,3 @@ from django.dispatch import receiver
 from wallet.models import Wallet  # Import the Wallet model
 
 
-@receiver(post_save, sender=CustomUser)
-def create_user_wallet(sender, instance, created, **kwargs):
-    """
-    A signal that creates a Wallet for a user as soon as they are created.
-    """
-    if created:
-        Wallet.objects.create(user=instance)
-        # Wallet.objects.create(user=instance) <-- REMOVE THIS DUPLICATE LINE
