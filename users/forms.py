@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate
 from .models import CustomUser
 
-
+#it inherits from UserCreationForm which handles checking that password1 and password2 match and Securely hash the user's password before saving it
 class SignUpForm(UserCreationForm):
     GENDER_CHOICES = [
         ("male", "Male"),
@@ -35,12 +35,13 @@ class SignUpForm(UserCreationForm):
 
     # Override password fields to match your design
     password1 = forms.CharField(
-        widget=forms.PasswordInput()
+        widget=forms.PasswordInput(attrs={'placeholder': ' '})
     )
     password2 = forms.CharField(
-        widget=forms.PasswordInput()
+        widget=forms.PasswordInput(attrs={'placeholder': ' '})
     )
 
+# inner Meta class is how you connect a form directly to a database model
     class Meta:
         model = CustomUser
         fields = (
@@ -60,6 +61,7 @@ class SignUpForm(UserCreationForm):
         self.fields["username"].widget = forms.HiddenInput()
         self.fields["username"].required = False
 
+#   to ensure that every email is unique in your database.
     def clean_email(self):
         email = self.cleaned_data.get("email")
         if CustomUser.objects.filter(email=email).exists():
@@ -118,6 +120,7 @@ class LoginForm(AuthenticationForm):
         ),
     )
 
+    # This code takes the submitted email, finds the corresponding CustomUser in the database, gets their actual username (user_obj.username), and puts it back into self.cleaned_data["username"].
     def clean(self):
         # The 'username' field from the form now contains the user's email
         email = self.cleaned_data.get("username")
@@ -144,7 +147,7 @@ class LoginForm(AuthenticationForm):
 # --- OTPForm (New form required for the 2FA process) ---
 # This form is for the second step of the login.
 
-
+# This inherits from the most basic forms.Form.It's not connected to any database model. It's just a temporary container for one piece of data: the One-Time Password (OTP) that the user enters. 
 class OTPForm(forms.Form):
     otp = forms.CharField(
         max_length=6,

@@ -117,20 +117,38 @@ input[type="text"] {
 }
 
 /* Error and Message Styling */
+/* Error and Message Styling */
 .messages .alert,
-.form-errors,
-.errorlist {
+.form-errors {
     padding: 15px;
     margin-bottom: 20px;
     border: 1px solid transparent;
     border-radius: 4px;
-    text-align: center;
 }
 
-.errorlist {
-    list-style-type: none;
-    padding: 0;
-    color: crimson;
-    font-size: 0.9em;
-    text-align: left;
+/* Specific colors for ERROR messages (from messages or form validation) */
+.messages .alert-error,
+.form-errors {
+    color: crimson; /* Dark red text */
+    background-color: #f2dede; /* Light pink background */
+    border-color: #ebccd1; /* Reddish border */
+}
+
+/* Specific colors for SUCCESS messages */
+.messages .alert-success {
+    color: #3c763d; /* Dark green text */
+    background-color: #dff0d8; /* Light green background */
+    border-color: #d6e9c6; /* Greenish border */
+}
+
+/* Specific colors for INFO messages */
+.messages .alert-info {
+    color: #31708f; /* Dark blue text */
+    background-color: #d9edf7; /* Light blue background */
+    border-color: #bce8f1; /* Bluish border */
+}
+
+/* Ensure paragraphs inside form error blocks have no extra margin */
+.form-errors p {
+    margin: 0;
 }

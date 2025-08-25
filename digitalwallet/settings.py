@@ -101,7 +101,6 @@ WSGI_APPLICATION = "digitalwallet.wsgi.application"
 
 # Email Configuration for 2FA
 # the new SMTP settings using app passwords
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"  # NEW
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587

@@ -10,9 +10,7 @@ from .forms import SignUpForm, LoginForm, OTPForm
 from .models import CustomUser
 
 
-# ==============================================================================
 # --- AUTHENTICATION FLOW VIEWS (Existing Code) ---
-# ==============================================================================
 
 def signup_view(request):
     if request.user.is_authenticated:
@@ -24,11 +22,7 @@ def signup_view(request):
             user = form.save()
             messages.success(request, "Account created successfully! Please log in.")
             return redirect("users:login")
-        else:
-            # Add form errors to messages
-            for field, errors in form.errors.items():
-                for error in errors:
-                    messages.error(request, f"{field}: {error}")
+        
     else:
         form = SignUpForm()
 
@@ -37,6 +31,8 @@ def signup_view(request):
 
 # updated for 2FA, Login view now handles the first step of authentication
 def login_view(request):
+    # This code retrieves and effectively discards all existing messages.
+    list(messages.get_messages(request))
     if request.user.is_authenticated:
         return redirect("wallet:dashboard")
 
@@ -60,8 +56,6 @@ def login_view(request):
             request.session["user_id_for_2fa"] = user.pk
             messages.info(request, "An OTP has been sent to your email.")
             return redirect("users:otp_verify")
-        else:
-            messages.error(request, "Invalid username or password.")
     else:
         form = LoginForm()
 
@@ -113,9 +107,7 @@ def otp_verify_view(request):
     return render(request, "users/otp_verify.html", {"form": form})
 
 
-# ==============================================================================
-# ## --- NEW --- ## TRANSACTION PIN MANAGEMENT VIEW
-# ==============================================================================
+#TRANSACTION PIN MANAGEMENT VIEW
 
 @login_required
 def create_pin_view(request):
@@ -156,9 +148,7 @@ def create_pin_view(request):
     return render(request, 'users/create_pin.html', context)
 
 
-# ==============================================================================
-# --- LOGOUT VIEW (Existing Code) ---
-# ==============================================================================
+# --- LOGOUT VIEW ---
 
 def logout_view(request):
     from django.contrib.auth import logout

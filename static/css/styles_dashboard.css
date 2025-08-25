@@ -291,7 +291,7 @@ body{
 }
 .status-failed {
     background-color: #ffebee;
-    color: #d32f2f;
+    color: crimson;
 }
 
 /* Special Offer Card */
