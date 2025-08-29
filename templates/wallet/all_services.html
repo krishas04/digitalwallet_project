@@ -1,0 +1,41 @@
+{% extends "base_dashboard.html" %} {% load static %} {% block title %}All
+Services - WebPay{% endblock %} {% block content %}
+
+
+<!-- Page Header -->
+<div class="welcome-header">
+  <h1>All Services</h1>
+  <p>Select a service from the options below to get started.</p>
+</div>
+
+<!-- Services List Card -->
+<section class="dashboard-card">
+  <div class="services-list-container">
+    <!-- Row 1: Load Money -->
+    <a href="{% url 'transaction:load_money' %}" class="service-list-item">
+      <div class="service-list-icon-wrapper">
+        <img src="{% static 'icons/loadmoney.jpg' %}" alt="Load Money Icon" />
+      </div>
+      <div class="service-list-details">
+        <h3>Load Money</h3>
+      </div>
+    </a>
+
+    <!-- Row 2: Transfer Money -->
+    <a
+      href="{% url 'transaction:transfer_dispatcher' %}"
+      class="service-list-item"
+    >
+      <div class="service-list-icon-wrapper">
+        <img
+          src="{% static 'icons/transfermoney.jpg' %}"
+          alt="Transfer Money Icon"
+        />
+      </div>
+      <div class="service-list-details">
+        <h3>Transfer Money</h3>
+      </div>
+    </a>
+  </div>
+</section>
+{% endblock %}

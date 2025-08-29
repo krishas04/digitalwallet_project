@@ -28,6 +28,7 @@ body{
     overflow: hidden; /* Prevents scrollbars on the main body */
 }
 
+
 /* Header Elements */
 .logo-image {
     height: 30px;
@@ -352,4 +353,74 @@ body{
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     transition: background-color 0.2s ease;
+}
+/* ========================================================== */
+/* ## STYLES FOR LOGOUT CONFIRMATION PAGE ## */
+/* ========================================================== */
+
+.confirm-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5vh; /* Pushes the box down from the top a bit */
+}
+
+.confirm-box {
+    background-color: #e0f2e0; /* Light green background */
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    width: 100%;
+    max-width: 450px; /* Limits the width on larger screens */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.confirm-box h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #333; /* Darker text for better contrast */
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.confirm-box p {
+    margin-bottom: 30px;
+    font-size: 1.1em;
+    color: #555;
+}
+
+.confirm-buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px; /* Adds space between buttons */
+}
+
+.confirm-buttons a {
+    padding: 12px 0; /* Vertical padding, horizontal will be handled by flex */
+    flex-grow: 1; /* Makes both buttons take up equal space */
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    border: 2px solid transparent; /* for hover effect */
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-cancel {
+    background-color: #f0f0f0;
+    color: #333;
+    border-color: #ccc;
+}
+.btn-cancel:hover {
+    background-color: #e0e0e0;
+}
+
+.btn-logout {
+    background-color: #2e7d32; /* Dark green */
+    color: white;
+}
+.btn-logout:hover {
+    background-color: #1e5e21; /* Even darker green on hover */
 }

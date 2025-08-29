@@ -61,6 +61,11 @@ AUTH_USER_MODEL = "users.CustomUser"
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
+#session management
+SESSION_COOKIE_AGE = 3200  # 60 minutes
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True # Optional but recommended
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",  # added
     "django.middleware.security.SecurityMiddleware",

@@ -1,0 +1,21 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}Confirm Logout{% endblock %}
+
+{% block content %}
+
+<div class="confirm-container">
+    <div class="confirm-box">
+        <h1>Confirm</h1>
+        <p>Are you sure you want to logout?</p>
+        <div class="confirm-buttons">
+            <!-- CANCEL button takes the user back to the dashboard -->
+            <a href="{% url 'wallet:dashboard' %}" class="btn-cancel">Cancel</a>
+
+            <!-- LOGOUT button points to the actual logout URL -->
+            <a href="{% url 'users:logout' %}" class="btn-logout">Logout</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

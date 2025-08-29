@@ -13,5 +13,5 @@ urlpatterns = [
     path("help/", views.help, name="help"),
     path("dashboard/", views.dashboard_view, name="dashboard"),
     path("support/", views.support_view, name="support"),
-
+    path("all-services/", views.all_services_view, name="all_services"),
 ]

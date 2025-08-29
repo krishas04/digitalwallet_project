@@ -148,11 +148,21 @@ def create_pin_view(request):
     return render(request, 'users/create_pin.html', context)
 
 
-# --- LOGOUT VIEW ---
+# --- LOGOUT CONFIRMATION ---
+@login_required
+def logout_confirm_view(request):
+    """
+    Renders the page that asks the user to confirm they want to log out.
+    """
+    return render(request, 'users/logout_confirm.html')
 
+
+# --- LOGOUT VIEW ---
 def logout_view(request):
     from django.contrib.auth import logout
 
     logout(request)
     messages.success(request, "You have been logged out successfully.")
-    return redirect("users:login")
+    
+    # Ensure this redirect points to your homepage
+    return redirect("wallet:index")

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}WebPay{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles_dashboard.css' %}">
-    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles_allservices.css' %}"/>
 </head>
 <body>
 
@@ -39,15 +39,12 @@
                 <div class="nav-main-menu">
                     <h2 class="menu-title">Main Menu</h2>
                     <a href="{% url 'wallet:dashboard' %}" class="nav-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Dashboard</a>
-                    <a href="#" class="nav-item" {% if request.resolver_match.url_name == 'services' %}active{% endif %}">Services</a>
-                    <a href="#" class="nav-item" {% if request.resolver_match.url_name == 'Wallet' %}active{% endif %}">Wallet</a>
+                    <a href="{% url 'wallet:all_services' %}" class="nav-item {% if request.resolver_match.view_name == 'wallet:all_services' %}active{% endif %}">Services</a>
                     <a href="{% url 'transaction:transaction-history' %}" class="nav-item" {% if request.resolver_match.url_name == 'transaction-history' %}active{% endif %}">Transaction History</a>
-                    <a href="#" class="nav-item {% if request.resolver_match.url_name == 'account' %}active{% endif %}">Account</a>
-                    <a href="#" class="nav-item" {% if request.resolver_match.url_name == 'Settings' %}active{% endif %}">Settings</a>
                     <a href="{% url 'wallet:support' %}" class="nav-item" {% if request.resolver_match.url_name == 'support' %}active{% endif %}">Help and Support</a>
                 </div>
                 <div class="nav-logout">
-                    <a href="#" class="nav-item">Log out</a>
+                    <a href="{% url 'users:logout_confirm' %}" class="nav-item">Log out</a>
                 </div>
             </nav>
 

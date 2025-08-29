@@ -1,0 +1,67 @@
+
+/* ## STYLES FOR ALL SERVICES PAGE (all_services.html) ## */
+
+
+.services-list-container {
+    display: flex;
+    flex-direction: column; 
+    gap: 15px; 
+}
+
+/* This styles the entire clickable row (the <a> tag) */
+.service-list-item {
+    display: flex;
+    align-items: center; /* Vertically aligns the icon and text */
+    padding: 20px;
+    background-color: #ffffff; /* Use a clean white background */
+    border: 1px solid #e9e9e9; /* Softer border color */
+    border-radius: 8px;
+    text-decoration: none; /* CRITICAL: Removes underline from all text inside the link */
+    color: inherit; /* Prevents browser's default link colors */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.service-list-item:hover {
+    transform: translateY(-3px); /* Adds a subtle lift effect on hover */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Styles the circle around the icon */
+.service-list-icon-wrapper {
+    flex-shrink: 0;
+    margin-right: 20px;
+    background-color: #f0f0f0; /* A neutral gray background */
+    padding: 15px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-list-icon-wrapper img {
+    width: 35px; /* Slightly larger icon */
+    height: 35px;
+}
+
+/* Styles the container for the heading and description */
+.service-list-details {
+    flex-grow: 1; /* Takes up the remaining space in the row */
+}
+a{
+    text-decoration: none;
+}
+
+/* Styles the "Load Money" / "Transfer Money" heading */
+.service-list-details h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.2em; /* Made the heading slightly bigger */
+    font-weight: 600;
+    color: #333333; /* IMPORTANT: Sets a specific dark color, overriding the browser's purple link color */
+}
+
+/* Styles the description text below the heading */
+.service-list-details p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #666666; /* Softer gray for the description */
+}

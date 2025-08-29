@@ -32,22 +32,11 @@
     <img src="{% static 'icons/transfermoney.jpg' %}" alt="Transfer Money" class="service-icon">
     <span>Transfer money</span>
         </a>
-        <a href="#" class="service-item">
-            <img src="{% static 'icons/billpayment.jpg' %}" alt="Bill Payment" class="service-icon">
-            <span>Bill payment</span>
-        </a>
-        <a href="#" class="service-item">
-            <img src="{% static 'icons/qrpayment.jpg' %}" alt="QR Payment" class="service-icon">
-            <span>QR payment</span>
-        </a>
-        <a href="#" class="service-item">
-            <img src="{% static 'icons/cashback.jpg' %}" alt="Cash Back" class="service-icon">
-            <span>Cash Back</span>
-        </a>
+        
     </div>
     <div class="card-footer">
-         <a href="#"><button class="btn">Explore All Services</button></a>
-        </div>
+     <a href="{% url 'wallet:all_services' %}"><button class="btn">Explore All Services</button></a>
+</div>
 </section>
 
 <!-- Transaction History Card -->

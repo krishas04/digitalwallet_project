@@ -10,16 +10,16 @@ app_name = "users"
 urlpatterns = [
     path("", views.login_view, name="login"),  # Default to login page
     path("signup/", views.signup_view, name="signup"),
+    path("logout/confirm/", views.logout_confirm_view, name="logout_confirm"),
     path("login/", views.login_view, name="login"),
     path("otp-verify/", views.otp_verify_view, name="otp_verify"),  # otp
     path("logout/", views.logout_view, name="logout"),
     path("create-pin/", views.create_pin_view, name="create_pin"),
 
-    # ==============================================================================
-    # ## --- NEW: PASSWORD RESET URLS --- ##
-    # ==============================================================================
 
-    # 1. Page to request a password reset (user enters their email)
+    # NEW: PASSWORD RESET URLS 
+   
+     # 1. Page to request a password reset (user enters their email)
     path('password_reset/', 
      auth_views.PasswordResetView.as_view(
          template_name='users/password_reset_form.html',

@@ -36,9 +36,5 @@ class CustomUser(AbstractUser):
         return self.otp
 
 
-# to automatically create a wallet for new user
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from wallet.models import Wallet  # Import the Wallet model
 
 

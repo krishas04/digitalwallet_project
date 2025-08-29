@@ -30,7 +30,7 @@
                 <div class="transaction-details">
                     <!-- Displaying the type of transaction (e.g., "Deposit") -->
                     <strong>{{ tx.get_transaction_type_display }}</strong> 
-                    
+                    <small>{{ tx.description|truncatechars:55 }}</small> <br>
                     <!-- Applying the localtime filter before formatting the date -->
                     <small>{{ tx.timestamp|localtime|date:"F j, Y, g:i a" }}</small>
                 </div>
