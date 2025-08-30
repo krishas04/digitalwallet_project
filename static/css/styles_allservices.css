@@ -1,7 +1,4 @@
 
-/* ## STYLES FOR ALL SERVICES PAGE (all_services.html) ## */
-
-
 .services-list-container {
     display: flex;
     flex-direction: column; 
@@ -28,10 +25,11 @@
 
 /* Styles the circle around the icon */
 .service-list-icon-wrapper {
+    width: 70px;
+    height: 70px;
     flex-shrink: 0;
     margin-right: 20px;
-    background-color: #f0f0f0; /* A neutral gray background */
-    padding: 15px;
+    background-color: #f8f8f8; 
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -56,12 +54,6 @@ a{
     margin: 0 0 5px 0;
     font-size: 1.2em; /* Made the heading slightly bigger */
     font-weight: 600;
-    color: #333333; /* IMPORTANT: Sets a specific dark color, overriding the browser's purple link color */
+    color: #558d57; 
 }
 
-/* Styles the description text below the heading */
-.service-list-details p {
-    margin: 0;
-    font-size: 0.9em;
-    color: #666666; /* Softer gray for the description */
-}

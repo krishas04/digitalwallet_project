@@ -21,22 +21,26 @@
 </div>
 
 <!-- Services Card -->
-<section class="dashboard-card">
+<section class="dashboard-card services-card-container"> <!-- ADDED a new class here -->
     <h2 class="card-title">Our Services</h2>
-    <div class="services-grid">
-        <a href="{% url 'transaction:load_money' %}" class="service-item">
-            <img src="{% static 'icons/loadmoney.jpg' %}" alt="Load Money" class="service-icon">
-            <span>Load money</span>
-        </a>
-        <a href="{% url 'transaction:transfer_dispatcher' %}" class="service-item">
-    <img src="{% static 'icons/transfermoney.jpg' %}" alt="Transfer Money" class="service-icon">
-    <span>Transfer money</span>
-        </a>
-        
+
+    <!-- This new wrapper helps with the layout -->
+    <div class="services-card-content">
+        <div class="services-grid">
+            <a href="{% url 'transaction:load_money' %}" class="service-item">
+                <img src="{% static 'icons/loadmoney.jpg' %}" alt="Load Money" class="service-icon">
+                <span>Load money</span>
+            </a>
+            <a href="{% url 'transaction:transfer_dispatcher' %}" class="service-item">
+                <img src="{% static 'icons/transfermoney.jpg' %}" alt="Transfer Money" class="service-icon">
+                <span>Transfer money</span>
+            </a>
+        </div>
     </div>
+
     <div class="card-footer">
-     <a href="{% url 'wallet:all_services' %}"><button class="btn">Explore All Services</button></a>
-</div>
+        <a href="{% url 'wallet:all_services' %}"><button class="btn">Explore All Services</button></a>
+    </div>
 </section>
 
 <!-- Transaction History Card -->

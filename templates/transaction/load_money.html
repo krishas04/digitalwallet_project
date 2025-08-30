@@ -1,28 +1,25 @@
 {% extends 'base_dashboard.html' %}
 {% load static %}
 
+{# --- Link to custom CSS for this page --- #}
+{% block extra_head %} {# Assuming base_dashboard.html has an 'extra_head' block in its <head> section #}
+<link rel="stylesheet" href="{% static 'css/styles_load_transfer.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="content-card">
     <h2 class="section-title">Load Money into Your Wallet</h2>
-    <p>Please enter the amount you wish to add to your wallet balance.</p>
+    <p class="section-description">Please enter the amount you wish to add to your wallet balance.</p>
 
-    <!-- Display any messages from the backend -->
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}" style="padding: 10px; margin: 10px 0; border-radius: 5px; background-color: #f8d7da; color: #721c24;">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
-
-    <!-- This is now a simple HTML form -->
-    <form action="{% url 'transaction:initiate_khalti' %}" method="POST" style="margin-top: 30px;">
+    <!-- A simple HTML form -->
+    <form action="{% url 'transaction:initiate_khalti' %}" method="POST" class="load-money-form">
         {% csrf_token %}
-        <div class="form-group" style="margin-bottom: 15px;">
-            <label for="load-amount" style="display: block; margin-bottom: 5px;">Amount (Rs.)</label>
-            <input type="number" id="load-amount" name="amount" placeholder="Enter amount (e.g., 500)" min="10" required style="padding: 12px; width: 300px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc;">
+        <div class="form-group">
+            <label for="load-amount" class="form-label">Amount (Rs.)</label>
+            <input type="number" id="load-amount" name="amount" placeholder="Enter amount (e.g., 500)" min="10" required class="form-input">
         </div>
-        <button type="submit" style="padding: 12px 25px; background-color: #5cb85c; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+        <br>
+        <button type="submit" class="btn btn-primary">
             Proceed to Pay with Khalti
         </button>
     </form>
@@ -30,5 +27,4 @@
 {% endblock %}
 
 {% block extra_js %}
-<!-- NO JAVASCRIPT NEEDED HERE ANYMORE! -->
 {% endblock %}

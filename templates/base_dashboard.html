@@ -7,6 +7,7 @@
     <title>{% block title %}WebPay{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles_dashboard.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles_allservices.css' %}"/>
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
 
@@ -17,17 +18,11 @@
             <div class="header-left">
                 <img src="{% static 'images/logo_greenbg.jpg' %}" alt="WebPay Logo" class="logo-image">
             </div>
-            <div class="header-center">
-                <div class="search-bar">
-                    <input type="text" placeholder="Search">
-                    <button><img src="{% static 'icons/search.jpg' %}" alt=""></button>
-                </div>
-            </div>
+            
             <div class="header-right">
                 <div class="user-menu">
                     <img src="{% static 'icons/user-icon.jpg' %}" alt="User Icon">
                     <span> {{ user.first_name|default:user.username }}</span>
-                    <span class="arrow-down">▾</span>
                 </div>
             </div>
         </header>
@@ -38,13 +33,18 @@
             <nav class="left-nav">
                 <div class="nav-main-menu">
                     <h2 class="menu-title">Main Menu</h2>
+                    
                     <a href="{% url 'wallet:dashboard' %}" class="nav-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Dashboard</a>
-                    <a href="{% url 'wallet:all_services' %}" class="nav-item {% if request.resolver_match.view_name == 'wallet:all_services' %}active{% endif %}">Services</a>
-                    <a href="{% url 'transaction:transaction-history' %}" class="nav-item" {% if request.resolver_match.url_name == 'transaction-history' %}active{% endif %}">Transaction History</a>
-                    <a href="{% url 'wallet:support' %}" class="nav-item" {% if request.resolver_match.url_name == 'support' %}active{% endif %}">Help and Support</a>
+                    
+                    <a href="{% url 'wallet:all_services' %}" class="nav-item {% if request.resolver_match.url_name == 'all_services' %}active{% endif %}">Services</a>
+                    
+                    <a href="{% url 'transaction:transaction-history' %}" class="nav-item {% if request.resolver_match.url_name == 'transaction-history' %}active{% endif %}">Transaction History</a>
+                    
+                    <a href="{% url 'wallet:support' %}" class="nav-item {% if request.resolver_match.url_name == 'support' %}active{% endif %}">Help and Support</a>
                 </div>
+                
                 <div class="nav-logout">
-                    <a href="{% url 'users:logout_confirm' %}" class="nav-item">Log out</a>
+                    <a href="{% url 'users:logout_confirm' %}" class="nav-item {% if request.resolver_match.url_name == 'logout_confirm' %}active{% endif %}">Log out</a>
                 </div>
             </nav>
 

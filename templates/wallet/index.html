@@ -5,6 +5,14 @@
 
 {% block content %}
     <main>
+        {% if messages %}
+            <div class="messages"  style="padding: 15px;margin-bottom: 20px;border: 1px solid transparent;
+border-radius: 4px;color: #3c763d; background-color: #dff0d8; border-color: #d6e9c6; ">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
         <section class="hero">
             <div class="section-content">
                 <div class="text-content">

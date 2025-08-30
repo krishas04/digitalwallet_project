@@ -33,27 +33,7 @@ body{
 .logo-image {
     height: 30px;
 }
-.search-bar {
-    display: flex;
-}
-.search-bar input {
-    padding: 6px 5px;
-    border: 1px solid #b0c0b1;
-    border-right: none;
-    min-width: 350px;
-    font-size: 0.9em;
-    height: 30px;
-}
-.search-bar button {
-    padding: 6px 5px;
-    border: 1px solid #b0c0b1;
-    background-color: white;
-    cursor: pointer;
-    
-}
-.search-bar img{
-    height: 20px;
-}
+
 .user-menu {
     display: flex;
     align-items: center;
@@ -196,32 +176,46 @@ body{
 .btn:hover{
     background-color: #558d57;
 }
-/* Services Card */
+/* Services card*/
+section.dashboard-card.services-card-container {
+    display: flex;
+    flex-direction: column;
+}
+.services-card-content {
+    flex-grow: 1;
+}
 .services-grid {
     display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    text-align: center;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 40px;
+    padding-bottom: 20px;
 }
 .service-item {
-    text-decoration: none;
-    color: #333;
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-decoration: none;
+    color: #333;
     gap: 10px;
-    width: 100px; /* Gives each item a consistent width */
+    min-width: 100px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
 }
-.service-item img {
-    height: 48px; /* Control icon size */
+.service-item:hover {
+    background-color: #f5f5f5;
+}
+.service-item .service-icon {
+    height: 48px;
     width: 48px;
     object-fit: contain;
 }
 .service-item span {
     font-weight: 500;
     font-size: 0.9em;
+    white-space: nowrap;
 }
-
 /* Transaction History Card */
 .transaction-header {
     display: flex;
@@ -294,6 +288,10 @@ body{
     background-color: #ffebee;
     color: crimson;
 }
+.status-pending{
+    background-color: #f8f0b1;
+    color: #dace23;
+}
 
 /* Special Offer Card */
 .offer-card .card-title {
@@ -354,73 +352,11 @@ body{
     border-radius: 4px;
     transition: background-color 0.2s ease;
 }
-/* ========================================================== */
-/* ## STYLES FOR LOGOUT CONFIRMATION PAGE ## */
-/* ========================================================== */
 
-.confirm-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 5vh; /* Pushes the box down from the top a bit */
-}
 
-.confirm-box {
-    background-color: #e0f2e0; /* Light green background */
-    padding: 40px;
-    border-radius: 8px;
-    text-align: center;
-    width: 100%;
-    max-width: 450px; /* Limits the width on larger screens */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
 
-.confirm-box h1 {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #333; /* Darker text for better contrast */
-    margin-top: 0;
-    margin-bottom: 10px;
-}
 
-.confirm-box p {
-    margin-bottom: 30px;
-    font-size: 1.1em;
-    color: #555;
-}
 
-.confirm-buttons {
-    display: flex;
-    justify-content: space-around;
-    gap: 20px; /* Adds space between buttons */
-}
 
-.confirm-buttons a {
-    padding: 12px 0; /* Vertical padding, horizontal will be handled by flex */
-    flex-grow: 1; /* Makes both buttons take up equal space */
-    border-radius: 5px;
-    font-size: 1.1em;
-    font-weight: bold;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    border: 2px solid transparent; /* for hover effect */
-    transition: all 0.2s ease-in-out;
-}
 
-.btn-cancel {
-    background-color: #f0f0f0;
-    color: #333;
-    border-color: #ccc;
-}
-.btn-cancel:hover {
-    background-color: #e0e0e0;
-}
 
-.btn-logout {
-    background-color: #2e7d32; /* Dark green */
-    color: white;
-}
-.btn-logout:hover {
-    background-color: #1e5e21; /* Even darker green on hover */
-}

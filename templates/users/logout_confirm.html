@@ -2,8 +2,14 @@
 
 {% block title %}Confirm Logout{% endblock %}
 
-{% block content %}
+{% load static %}
 
+{# --- Link to custom CSS for this page --- #}
+{% block extra_head %} {# Assuming base_dashboard.html has an 'extra_head' block in its <head> section #}
+<link rel="stylesheet" href="{% static 'css/styles_logout.css' %}">
+{% endblock %}
+
+{% block content %}
 <div class="confirm-container">
     <div class="confirm-box">
         <h1>Confirm</h1>
