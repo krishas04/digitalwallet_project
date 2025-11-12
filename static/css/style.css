@@ -124,16 +124,3 @@ h1,h2{
     width: 100%;
     height: auto;
 }
-/* Specific colors for SUCCESS messages */
-.messages .alert-success {
-    color: #3c763d; /* Dark green text */
-    background-color: #dff0d8; /* Light green background */
-    border-color: #d6e9c6; /* Greenish border */
-}
-
-/* Specific colors for INFO messages */
-.messages .alert-info {
-    color: #31708f; /* Dark blue text */
-    background-color: #d9edf7; /* Light blue background */
-    border-color: #bce8f1; /* Bluish border */
-}

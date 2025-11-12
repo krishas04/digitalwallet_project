@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views
-from transaction.views import khalti_payment_callback  # Import the callback view
 
 app_name = "wallet"
 

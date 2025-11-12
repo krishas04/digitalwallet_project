@@ -18,10 +18,14 @@
             Already Registered? <a href="{% url 'users:login' %}">Login</a>
         </div>
 
-        <!-- ## --- NEW CONSOLIDATED ERROR BLOCK --- ## -->
         <!-- This will now display ALL errors in one place -->
         {% if form.errors %}
             <div class="form-errors">
+                {# non-field errors #}
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+                {# field specific errors#}
                 {% for field, errors in form.errors.items %}
                     {% for error in errors %}
                         <p>{{ error }}</p>

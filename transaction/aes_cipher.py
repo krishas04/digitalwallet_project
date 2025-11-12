@@ -1,5 +1,3 @@
-# transaction/aes_cipher.py
-# WARNING: This is for demonstration purposes ONLY. Not for production use.
 import os
 
 # --- AES Constants (Encryption) ---
@@ -44,7 +42,6 @@ INV_S_BOX = (
 
 RCON = (0x00, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36)
 
-# --- Helper functions (Shared or for Encryption) ---
 def _galois_mult(a, b):
     p = 0
     for _ in range(8):
@@ -79,27 +76,27 @@ def _add_round_key(state, key):
     return [s ^ k for s, k in zip(state, key)]
 
 def _key_expansion(key):
-    Nk = 8
-    key_words = [key[i:i+4] for i in range(0, 32, 4)]
-    for i in range(Nk, 60):
-        temp = list(key_words[i-1])
-        if i % Nk == 0:
-            temp = temp[1:] + temp[:1]
-            temp = [S_BOX[b] for b in temp]
-            temp[0] ^= RCON[i//Nk]
-        elif i % Nk == 4:
-            temp = [S_BOX[b] for b in temp]
+    Nk = 8  #no of words
+    key_words = [key[i:i+4] for i in range(0, 32, 4)]   #32 bytes lai 8 words ma change grxw 
+    for i in range(Nk, 60): #60words ko key ma expand grne goal esko  i=8
+        temp = list(key_words[i-1]) 
+        if i % Nk == 0: #8 ko multiple
+            temp = temp[1:] + temp[:1] #left shift
+            temp = [S_BOX[b] for b in temp] #sub byte
+            temp[0] ^= RCON[i//Nk]  #xor perform
+        elif i % Nk == 4:   #12, 20, 28 index aes complex banaunw or non linear banaunw
+            temp = [S_BOX[b] for b in temp] #sub byte
         prev_key_word = key_words[i-Nk]
-        new_word = bytes([b1 ^ b2 for b1, b2 in zip(prev_key_word, temp)])
-        key_words.append(new_word)
-    return [b for word in key_words for b in word]
+        new_word = bytes([b1 ^ b2 for b1, b2 in zip(prev_key_word, temp)]) #xor perform
+        key_words.append(new_word)  #combine
+    return [b for word in key_words for b in word] #flatten grxw
 
 def _pad(data):
     padding_len = 16 - (len(data) % 16)
     padding = bytes([padding_len] * padding_len)
-    return data + padding
+    return data + padding   
 
-# --- NEW: INVERSE (DECRYPTION) HELPER FUNCTIONS ---
+# --- INVERSE (DECRYPTION) HELPER FUNCTIONS ---
 def _unpad(data):
     padding_len = data[-1]
     if padding_len > 16: return data # Not padded
@@ -129,22 +126,23 @@ def _inv_mix_columns(state):
 def encrypt(plaintext_bytes, key_bytes):
     round_keys = _key_expansion(key_bytes)
     padded_plaintext = _pad(plaintext_bytes)
-    ciphertext = b''
-    for i in range(0, len(padded_plaintext), 16):
-        block = list(padded_plaintext[i:i+16])
-        state = _add_round_key(block, round_keys[0:16])
-        for round_num in range(1, 14):
+    ciphertext = b''    #empty byte variable
+    for i in range(0, len(padded_plaintext), 16):   #16 bytes samma
+        block = list(padded_plaintext[i:i+16])  #16 bytes
+        state = _add_round_key(block, round_keys[0:16]) # in round 1 ,add round key
+        for round_num in range(1, 14):  #13 rounds rounds
             state = _sub_bytes(state)
             state = _shift_rows(state)
             state = _mix_columns(state)
             state = _add_round_key(state, round_keys[round_num*16 : (round_num+1)*16])
+        #14th round
         state = _sub_bytes(state)
         state = _shift_rows(state)
         state = _add_round_key(state, round_keys[14*16 : 15*16])
         ciphertext += bytes(state)
     return ciphertext
 
-# --- NEW: Main Decryption Function ---
+# ---  Main Decryption Function ---
 def decrypt(ciphertext_bytes, key_bytes):
     round_keys = _key_expansion(key_bytes)
     decrypted_data = b''

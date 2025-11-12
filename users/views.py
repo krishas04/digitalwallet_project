@@ -4,13 +4,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.core.mail import send_mail
-from django.contrib.auth.hashers import make_password  # Used for the new PIN view
+from users.sha_hasher import hash_pin, check_pin
+from django.conf import settings
 
 from .forms import SignUpForm, LoginForm, OTPForm
 from .models import CustomUser
-
-
-# --- AUTHENTICATION FLOW VIEWS (Existing Code) ---
 
 def signup_view(request):
     if request.user.is_authenticated:
@@ -29,7 +27,6 @@ def signup_view(request):
     return render(request, "users/signup.html", {"form": form})
 
 
-# updated for 2FA, Login view now handles the first step of authentication
 def login_view(request):
     # This code retrieves and effectively discards all existing messages.
     list(messages.get_messages(request))
@@ -44,13 +41,13 @@ def login_view(request):
             # Generate and send OTP
             otp = user.generate_otp()
             send_mail(
-                "Your OTP Code",
-                f"Your One-Time Password is: {otp}",
-                "noreply@digitalwallet.com",
-                [user.email],
+                "Your OTP Code",    #subject of email
+                f"Your One-Time Password is: {otp}",    #message body
+                settings.DEFAULT_FROM_EMAIL,    #email of sender
+                [user.email],   # list of recipient emails
                 fail_silently=False,
             )
-            print(f"OTP for {user.username}: {otp}")
+            print(f"OTP for {user.username}: {otp}")    #prints otp on terminal
 
             # Store user's pk in session to verify in the next step
             request.session["user_id_for_2fa"] = user.pk
@@ -81,7 +78,7 @@ def otp_verify_view(request):
             entered_otp = form.cleaned_data.get("otp")
 
             # Check if OTP has expired
-            if user.otp_expiry and timezone.now() > user.otp_expiry:
+            if user.otp_expiry and timezone.now() > user.otp_expiry:    #expiry time exists and expiry time has been crossed
                 messages.error(request, "OTP has expired. Please try logging in again.")
                 return redirect("users:login")
 
@@ -93,7 +90,7 @@ def otp_verify_view(request):
                 user.save()
 
                 # Log the user in
-                login(request, user)
+                login(request, user)    #built-in function that marks a user as authenticated and stores their ID in the session.
                 del request.session["user_id_for_2fa"]  # Clean up session
                 messages.success(request, f"Welcome back, {user.username}!")
                 return redirect("wallet:dashboard")
@@ -136,10 +133,22 @@ def create_pin_view(request):
             user = request.user
             # We securely hash the PIN using Django's password hashing system.
             # This means we don't store the plain PIN in the database.
-            user.transaction_pin = make_password(pin1)
+            user.transaction_pin = hash_pin(pin1)
             user.save()
             
             messages.success(request, "Your transaction PIN has been created successfully!")
+
+            # ## --- PIN HASHING DEMO (CONSOLE OUTPUT) --- ##
+            # This part will ONLY run when a PIN is successfully created.
+            print("\n--- TRANSACTION PIN HASHING DEMO ---")
+            print(f"Original PIN entered: {pin1}")
+            print(f"Stored Hashed PIN: {user.transaction_pin}")
+            
+            # Demonstrate checking the PIN
+            print(f"Verification Check (Correct PIN '{pin1}'): {check_pin(pin1, user.transaction_pin)}")
+            print(f"Verification Check (Incorrect PIN '9999'): {check_pin('9999', user.transaction_pin)}")
+            print("--- END OF PIN HASHING DEMO ---\n")
+            # ===================================================
             return redirect(next_url) # Redirect to the page they were originally trying to access
 
     # This context is useful if you want to pass the 'next' URL to the template,

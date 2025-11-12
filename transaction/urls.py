@@ -4,11 +4,11 @@ from . import views
 app_name = "transaction"
 
 urlpatterns = [
-    # --- URLs for Loading Money (No Change) ---
+    # --- URLs for Loading Money ---
     path("load-money/", views.load_money_view, name="load_money"),
     path("initiate-khalti/", views.initiate_khalti_payment, name="initiate_khalti"),
     path("khalti-callback/", views.khalti_payment_callback, name="khalti_callback"),
-    # --- URLs for PIN-Based Money Transfer (Updated) ---
+    # --- URLs for PIN-Based Money Transfer ---
     # The new entry point from the dashboard. It decides where to send the user.
     path("transfer/", views.transfer_dispatcher_view, name="transfer_dispatcher"),
     # Step 1: The page where user enters recipient/amount.

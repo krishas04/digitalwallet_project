@@ -17,7 +17,7 @@ urlpatterns = [
     path("create-pin/", views.create_pin_view, name="create_pin"),
 
 
-    # NEW: PASSWORD RESET URLS 
+    # PASSWORD RESET URLS 
    
      # 1. Page to request a password reset (user enters their email)
     path('password_reset/', 
