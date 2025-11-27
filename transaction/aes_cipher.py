@@ -47,13 +47,13 @@ RCON = (0x00, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36)
 # --- Helper functions (Shared or for Encryption) ---
 def _galois_mult(a, b):
     p = 0
-    for _ in range(8):
-        if b & 1: p ^= a
-        hi_bit_set = a & 0x80
-        a <<= 1
-        if hi_bit_set: a ^= 0x1b # x^8 + x^4 + x^3 + x + 1
-        b >>= 1
-    return p % 256
+    for _ in range(8):          # Iterate 8 times, corresponding to the 8 bits of 'b'
+        if b & 1: p ^= a             # If the LSB of 'b' is 1, XOR 'a' into 'p'     
+        hi_bit_set = a & 0x80        # Check if the MSB of 'a' is set (0x80 = 10000000 binary)
+        a <<= 1                      # Left shift 'a' by 1 bit (equivalent to multiplying by x in GF(2^8))
+        if hi_bit_set: a ^= 0x1b  # If MSB was set, XOR with the irreducible polynomial (0x1b = x^4 + x^3 + x + 1)
+        b >>= 1                 # Right shift 'b' by 1 bit to process the next bit
+    return p % 256              # Ensure result is within 8 bits
 
 def _sub_bytes(state):
     return [S_BOX[b] for b in state]
@@ -74,6 +74,18 @@ def _mix_columns(state):
         new_state[i*4+2] = col[0] ^ col[1] ^ _galois_mult(col[2], 2) ^ _galois_mult(col[3], 3)
         new_state[i*4+3] = _galois_mult(col[0], 3) ^ col[1] ^ col[2] ^ _galois_mult(col[3], 2)
     return new_state
+    '''
+    |2 3 1 1|
+    |1 2 3 1|
+    |1 1 2 3|
+    |3 1 1 2|
+    this is a fixed matrix
+    |b1 b5 b9  b13
+    |b2 b6 b10 b14
+    |b3 b7 b11 b15
+    |b4 b8 b12 b16     yo chai state matrix
+    b1 = (b1 * 2) XOR (b2 *3) XOR (b3 * 1) XOR (b4 * 1)  
+    '''
 
 def _add_round_key(state, key):
     return [s ^ k for s, k in zip(state, key)]
@@ -129,7 +141,7 @@ def _inv_mix_columns(state):
 def encrypt(plaintext_bytes, key_bytes):
     round_keys = _key_expansion(key_bytes)
     padded_plaintext = _pad(plaintext_bytes)
-    ciphertext = b''
+    ciphertext = b''   # an empty byte variable created
     for i in range(0, len(padded_plaintext), 16):
         block = list(padded_plaintext[i:i+16])
         state = _add_round_key(block, round_keys[0:16])

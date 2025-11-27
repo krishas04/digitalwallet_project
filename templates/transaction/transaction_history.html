@@ -20,7 +20,6 @@
         </div>
     </div>
     <ul class="transaction-list">
-        {# THE FIX: We now loop over 'transactions' which should contain all records, not just recent ones. #}
         {% for tx in transactions %}
             <li class="transaction-item">
             {% if tx.transaction_type == 'LOAD' %}
@@ -36,7 +35,7 @@
                 <div class="transaction-details">
                     <!-- Displaying the type of transaction (e.g., "Deposit") -->
                     <strong>{{ tx.get_transaction_type_display }}</strong> 
-                    <small>{{ tx.description|truncatechars:55 }}</small> <br>
+                    <small>{{ tx.display_description|truncatechars:55 }}</small> <br>
                     <!-- Applying the localtime filter before formatting the date -->
                     <small>{{ tx.timestamp|localtime|date:"F j, Y, g:i a" }}</small>
                 </div>
@@ -46,11 +45,28 @@
                 <div class="transaction-status status-{{ tx.status|lower }}">{{ tx.status }}</div>
             </li>
         {% empty %}
-            {# THE FIX: The message is updated to be more general. #}
             <li class="transaction-item">
                 <p>You have no transactions.</p>
             </li>
         {% endfor %}
     </ul>
+
+
+     {#  Pagination Controls #}
+    {% if transactions.has_other_pages %}
+    <div class="pagination-controls">
+        {% if transactions.has_previous %}
+            <a href="?page={{ transactions.previous_page_number }}" class="page-link">&laquo; previous</a>
+        {% endif %}
+
+        <span class="current-page-info">
+            Page {{ transactions.number }} of {{ transactions.paginator.num_pages }}.
+        </span>
+
+        {% if transactions.has_next %}
+            <a href="?page={{ transactions.next_page_number }}" class="page-link">next &raquo;</a>
+        {% endif %}
+    </div>
+    {% endif %}
 </section>
 {% endblock content %}

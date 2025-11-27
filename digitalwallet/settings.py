@@ -28,7 +28,7 @@ load_dotenv(BASE_DIR / ".env")  # Added this line
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-tofgnf$x9w^n@a=%7f-^fqwm&rled=^8!dhhz-g3_6r9=zda2p"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -45,12 +45,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "rest_framework",
     "corsheaders",
     "transaction",
     # 2FA Apps
     "django_otp",
     "django_otp.plugins.otp_static",
+    
     "wallet",
     "users.apps.UsersConfig",
     
@@ -67,7 +67,7 @@ SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True # Optional but recommended
 
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",  # added
+    "corsheaders.middleware.CorsMiddleware",  
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -94,7 +94,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'wallet.context_processors.wallet_context', #add this for context_processors.py
+                'wallet.context_processors.wallet_context', # this is for context_processors.py, this line activates it
 
 
             ],
@@ -112,7 +112,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True  # For secure connection
 EMAIL_HOST_USER = os.getenv("EMAIL_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # Optional: Set a default from email
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # Optional: set a default from email
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -185,10 +185,7 @@ MESSAGE_TAGS = {
     messages.ERROR: "error",
 }
 
-# Set the time zone for your project
+# Set the time zone 
 TIME_ZONE = 'Asia/Kathmandu'
-
 USE_I18N = True
-
-# IMPORTANT: Make sure this is True
 USE_TZ = True 

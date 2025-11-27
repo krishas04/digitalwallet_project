@@ -11,7 +11,7 @@
     <h2 class="section-title">Load Money into Your Wallet</h2>
     <p class="section-description">Please enter the amount you wish to add to your wallet balance.</p>
 
-    <!-- A simple HTML form -->
+   
     <form action="{% url 'transaction:initiate_khalti' %}" method="POST" class="load-money-form">
         {% csrf_token %}
         <div class="form-group">

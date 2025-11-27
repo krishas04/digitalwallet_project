@@ -41,7 +41,7 @@ class SignUpForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={'placeholder': ' '})
     )
 
-# inner Meta class is how you connect a form directly to a database model
+# inner Meta class is how we connect a form directly to a database model
     class Meta:
         model = CustomUser
         fields = (

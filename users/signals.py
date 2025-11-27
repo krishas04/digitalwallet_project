@@ -3,8 +3,6 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .models import CustomUser
-# This import might fail if the wallet app isn't set up correctly.
-# If it does, please provide your wallet/models.py file.
 from wallet.models import Wallet
 
 @receiver(post_save, sender=CustomUser)

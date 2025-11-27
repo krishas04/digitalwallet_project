@@ -10,7 +10,7 @@ from .forms import SignUpForm, LoginForm, OTPForm
 from .models import CustomUser
 
 
-# --- AUTHENTICATION FLOW VIEWS (Existing Code) ---
+# --- AUTHENTICATION FLOW VIEWS ---
 
 def signup_view(request):
     if request.user.is_authenticated:
@@ -29,9 +29,9 @@ def signup_view(request):
     return render(request, "users/signup.html", {"form": form})
 
 
-# updated for 2FA, Login view now handles the first step of authentication
+
 def login_view(request):
-    # This code retrieves and effectively discards all existing messages.
+    
     list(messages.get_messages(request))
     if request.user.is_authenticated:
         return redirect("wallet:dashboard")
@@ -111,11 +111,7 @@ def otp_verify_view(request):
 
 @login_required
 def create_pin_view(request):
-    """
-    Handles the one-time creation of a user's transaction PIN.
-    This view is responsible for setting the user's PIN, which is a piece
-    of user-specific data, hence why it lives in the 'users' app.
-    """
+   
     # Get the URL to redirect to after successful PIN creation. This is passed
     # by the view that sent the user here (e.g., the transfer dispatcher).
     next_url = request.GET.get('next', 'wallet:dashboard')
