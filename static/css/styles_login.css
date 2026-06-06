@@ -1,0 +1,158 @@
+/* styles_login.css */
+
+/* General Body Styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 40px;
+    /* Center the content on the page */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+.logo-wrapper{
+    margin-top: -40px;
+    margin-left: -40px;
+}
+
+.logo-image{
+    width: 150px;
+    height: auto;
+}
+/* Main Form Container (The green box) */
+.container {
+    max-width: 480px;
+    width: 100%;
+    padding: 40px;
+    background-color: #b0dbb2;
+    /* Color picked from the new image */
+    border: 1px ;
+    box-sizing: border-box;
+}
+
+/* Typography */
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 0.9em;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+/* --- UPDATED INPUT FIELDS --- */
+/* This rule now targets all relevant input types to ensure they are identical */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid black;
+    background-color: white;
+    box-sizing: border-box;
+    font-size: 1em;
+    border-radius: 2px;
+}
+
+/* Style for placeholder text to match the image */
+::placeholder {
+    color: gray;
+    opacity: 1;
+    /* Override Firefox's default opacity */
+    font-size: 0.9em;
+}
+
+
+/* Links */
+.forgot-password {
+    text-align: right;
+    margin-bottom: 30px;
+}
+
+.forgot-password a {
+    color: #558d57;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 0.9em;
+}
+
+.signup-link a {
+    color: #558d57;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.forgot-password a:hover,
+.signup-link a:hover {
+    color: #38793b;
+}
+
+/* Submit Button */
+.text-center {
+    text-align: center;
+}
+
+.btn {
+    background-color: #558d57;
+    color: white;
+    padding: 14px 60px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+}
+
+.btn:hover {
+    background-color: #38793b;
+}
+
+/* Error and Message Styling */
+.messages .alert,
+.form-errors {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.messages .alert {
+    color: #38793b;
+}
+
+.form-errors {
+    color: crimson;
+}
+
+.form-errors p {
+    margin: 0;
+}

@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}WebPay{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles_dashboard.css' %}">
+</head>
+<body>
+
+    <div class="dashboard-container">
+       
+        <!-- header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <img src="{% static 'images/logo_greenbg.jpg' %}" alt="WebPay Logo" class="logo-image">
+            </div>
+            <div class="header-center">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search">
+                    <button><img src="{% static 'icons/search.jpg' %}" alt=""></button>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="user-menu">
+                    <img src="{% static 'icons/user-icon.jpg' %}" alt="User Icon">
+                    <span> {{ user.first_name|default:user.username }}</span>
+                    <span class="arrow-down">▾</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN BODY WRAPPER -->
+        <div class="dashboard-body">
+            <!--LEFT NAVIGATION -->
+            <nav class="left-nav">
+                <div class="nav-main-menu">
+                    <h2 class="menu-title">Main Menu</h2>
+                    <a href="{% url 'wallet:dashboard' %}" class="nav-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">Dashboard</a>
+                    <a href="#" class="nav-item {% if request.resolver_match.url_name == 'services' %}active{% endif %}">Services</a>
+                    <a href="#" class="nav-item">Wallet</a>
+                    <a href="{% url 'transactions:transaction-history' %}" class="nav-item">Transaction History</a>
+                    <a href="#" class="nav-item {% if request.resolver_match.url_name == 'account' %}active{% endif %}">Account</a>
+                    <a href="#" class="nav-item">Settings</a>
+                    <a href="{% url 'wallet:support' %}" class="nav-item">Help and Support</a>
+                </div>
+                <div class="nav-logout">
+                    <a href="#" class="nav-item">Log out</a>
+                </div>
+            </nav>
+
+            <!--  MAIN CONTENT AREA  -->
+            <main class="main-content">
+                {% block content %}
+                    <!-- The content from child templates like dashboard.html will appear here -->
+                {% endblock %}
+            </main>
+
+            <!--RIGHT SIDEBAR -->
+            <aside class="right-sidebar">
+                <div class="balance-card">
+                    <p class="balance-title">Your Total Balance</p>
+                    <!-- Use the wallet_balance variable from the context processor -->
+                    <h3 class="balance-amount">Rs. {{ wallet_balance|floatformat:2 }}</h3>
+            
+                    <!-- We can use Django's 'now' template tag for the current time -->
+                     <p class="balance-timestamp">{% now "F j, Y . g:i a" %}</p>
+
+                    <div class="sub-balance">
+                        <p class="balance-title">Main Balance</p>
+                         <div class="sub-balance-value" style="text-align: center; padding-top: 2px;">{{ wallet_balance|floatformat:2 }}</div>
+                    </div>
+                    <div class="sub-balance">
+                        <p class="balance-title">Bonus Balance</p>
+                        <div class="sub-balance-value" style="text-align: center; padding-top: 2px;">0.00</div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</body>
+</html>

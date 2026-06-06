@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebPay - Create Account</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles_signup.css' %}">
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo-wrapper"><img src="{% static 'images/logo_greenbg.jpg' %}" alt="WebPay Logo" class="logo-image"></div>
+        
+        
+       {% if form.non_field_errors %}
+            <div class="form-errors">
+                {% for error in form.non_field_errors %}
+                    <p class="error-message">{{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <h1>Create New Account</h1>
+        <div class="subtitle">
+            Already Registered? <a href="{% url 'users:login' %}">Login</a>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- Hidden username field -->
+            {{ form.username }}
+
+            <div class="form-group">
+                <label for="{{ form.full_name.id_for_label }}">FULLNAME</label>
+                {{ form.full_name }}
+                {{ form.full_name.errors }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">EMAIL</label>
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.mobile_number.id_for_label }}">MOBILE NUMBER</label>
+                {{ form.mobile_number }}
+                {{ form.mobile_number.errors }}
+            </div>
+            
+            <div class="form-group">
+                <label>GENDER</label>
+                <div class="gender-group">
+                    {% for choice in form.gender %}
+                        <div class="gender-option">
+                            {{ choice.tag }}
+                            <label for="{{ choice.id_for_label }}">{{ choice.choice_label }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+                {{ form.gender.errors }}
+            </div>
+            
+            <div class="form-group">
+                <label>DATE OF BIRTH(YYYY/MM/DD)</label>
+                <div class="date-selects">
+                    {{ form.date_of_birth }}
+                </div>
+                {{ form.date_of_birth.errors }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.password1.id_for_label }}">PASSWORD</label>
+                {{ form.password1 }}
+                {{ form.password1.errors }}
+            </div>
+            
+            <div class="form-group">
+                <label for="{{ form.password2.id_for_label }}">CONFIRM PASSWORD</label>
+                {{ form.password2 }}
+                {{ form.password2.errors }}
+            </div>
+            
+            <div class="text-center">
+                <button type="submit" class="btn">SIGN UP</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+{% extends "base_dashboard.html" %}
+{% load static tz %}  <!-- We load 'static' for images and 'tz' for the time zone filter -->
+
+{% block title %}Transaction History - My Wallet{% endblock %}
+
+{% block content %}
+<!-- Transaction History Card -->
+<section class="dashboard-card">
+    <div class="transaction-header">
+        <h2 class="card-title">Transaction History</h2>
+        <div class="transaction-cols">
+            <span><h3>Amount</h3></span>
+            <span><h3>Status</h3></span>
+        </div>
+    </div>
+    <ul class="transaction-list">
+        {# THE FIX: We now loop over 'transactions' which should contain all records, not just recent ones. #}
+        {% for tx in transactions %}
+            <li class="transaction-item">
+            {% if tx.transaction_type == 'DEPOSIT' %}
+                <img src="{% static 'icons/deposit.jpg' %}" alt="Deposit icon" class="transaction-icon">
+            {% elif tx.transaction_type == 'WITHDRAWAL' %}
+                <img src="{% static 'icons/withdrawal.jpg' %}" alt="Withdrawal icon" class="transaction-icon">
+            {% elif tx.transaction_type == 'TRANSFER' %}
+                <img src="{% static 'icons/transfer.jpg' %}" alt="Transfer icon" class="transaction-icon">
+            {% else %}
+            {# Fallback for any other or future transaction types #}
+                <img src="{% static 'icons/unknown.jpg' %}" alt="Transaction icon" class="transaction-icon">
+            {% endif %}
+                <div class="transaction-details">
+                    <!-- Displaying the type of transaction (e.g., "Deposit") -->
+                    <strong>{{ tx.get_transaction_type_display }}</strong> 
+                    
+                    <!-- Applying the localtime filter before formatting the date -->
+                    <small>{{ tx.timestamp|localtime|date:"F j, Y, g:i a" }}</small>
+                </div>
+
+                <div class="transaction-amount">Rs. {{ tx.amount|floatformat:2 }}</div>
+                
+                <div class="transaction-status status-{{ tx.status|lower }}">{{ tx.status }}</div>
+            </li>
+        {% empty %}
+            {# THE FIX: The message is updated to be more general. #}
+            <li class="transaction-item">
+                <p>You have no transactions.</p>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock content %}
