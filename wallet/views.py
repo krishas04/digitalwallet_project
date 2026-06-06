@@ -1,26 +1,37 @@
-from django.shortcuts import render
-# from django.http import HttpResponse
+import os
+import uuid
+import requests
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from django.db import transaction as db_transaction
+from django.contrib import messages
+from transaction.models import Transaction
+from .models import Wallet
 
 
+
+# --- VIEWS FOR STATIC PAGES (UNCHANGED) ---
 def index(request):
-    #  return HttpResponse('<h1>Welcome to Homepage</h1>')
-    return render(request,'wallet/index.html')
+    return render(request, "wallet/index.html")
 
 def aboutus(request):
-    return render(request,'wallet/aboutus.html')
+    return render(request, "wallet/aboutus.html")
 
 def services(request):
-    return render(request,'wallet/services.html')
+    return render(request, "wallet/services.html")
 
 def contact(request):
-    return render(request,'wallet/contact.html')
+    return render(request, "wallet/contact.html")
 
 def policies(request):
-    return render(request,'wallet/policies.html')
+    return render(request, "wallet/policies.html")
 
 def help(request):
-    return render(request,'wallet/help.html')
+    return render(request, "wallet/help.html")
+
+
+# --- CORE APPLICATION VIEWS (CORRECTED) ---
 
 def support_view(request):
     return render(request, "wallet/support.html")
@@ -28,4 +39,3 @@ def support_view(request):
 @login_required
 def dashboard_view(request):
     return render(request, "wallet/dashboard.html", {"user": request.user})
-

@@ -10,15 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
-import os #for static folder
+import os  # for static folder
 from pathlib import Path
 
-from dotenv import load_dotenv # Added this import for .env file
 
-# PayPal Settings
-PAYPAL_CLIENT_ID = os.getenv("PAYPAL_CLIENT_ID")
-PAYPAL_CLIENT_SECRET = os.getenv("PAYPAL_CLIENT_SECRET")
-PAYPAL_API_BASE_URL = os.getenv("PAYPAL_API_BASE_URL")
+from dotenv import load_dotenv # Added this import for .env file
 
 
 
@@ -26,7 +22,7 @@ PAYPAL_API_BASE_URL = os.getenv("PAYPAL_API_BASE_URL")
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load environment variables from .env file
-load_dotenv(BASE_DIR / '.env') # Added this line
+load_dotenv(BASE_DIR / ".env")  # Added this line
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -44,21 +40,20 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
 
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'rest_framework',
-    'corsheaders',
-    'transactions',
-    #2FA Apps
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "rest_framework",
+    "corsheaders",
+    "transaction",
+    # 2FA Apps
     "django_otp",
     "django_otp.plugins.otp_static",
     "wallet",
     "users.apps.UsersConfig",
-
-
+    
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"
@@ -67,32 +62,35 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware', #added
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",  # added
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 # Allow all origins for development (restrict in production)
-CORS_ALLOW_ALL_ORIGINS = True #ADDED
+CORS_ALLOW_ALL_ORIGINS = True  # ADDED
 
-ROOT_URLCONF = 'digitalwallet.urls'
+ROOT_URLCONF = "digitalwallet.urls"
 
 TEMPLATES = [
     {
+
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR /'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                "django.template.context_processors.debug",  # default
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'wallet.context_processors.wallet_context', #add this for context_processors.py
+
 
             ],
         },
@@ -101,15 +99,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "digitalwallet.wsgi.application"
 
-#Email Configuration for 2FA 
-#the new SMTP settings using app passwords
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # NEW
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+# Email Configuration for 2FA
+# the new SMTP settings using app passwords
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"  # NEW
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True  # For secure connection
-EMAIL_HOST_USER = os.getenv('EMAIL_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
+EMAIL_HOST_USER = os.getenv("EMAIL_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # Optional: Set a default from email
 
 # Database
@@ -159,8 +157,8 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-#  It configures the directory where Django looks for static files or external files 
-STATICFILES_DIRS= (os.path.join(BASE_DIR,'static'),)
+#  It configures the directory where Django looks for static files or external files
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 
 # Default primary key field type
