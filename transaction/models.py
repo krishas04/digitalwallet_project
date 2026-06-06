@@ -1,7 +1,7 @@
 import uuid
 from django.db import models
 from wallet.models import Wallet
-
+import base64 
 
 class Transaction(models.Model):
     class TransactionStatus(models.TextChoices):
@@ -28,7 +28,10 @@ class Transaction(models.Model):
         default=TransactionStatus.PENDING,
     )
     timestamp = models.DateTimeField(auto_now_add=True)
-    description = models.CharField(max_length=255, blank=True)
+    description = models.CharField(max_length=255, blank=True, null=True)
+
+    # Field to store the ENTIRE ENCRYPTED TRANSACTION DETAILS (as a Base64-encoded string).
+    encrypted_details = models.TextField(blank=True, null=True)
 
     # Fields for Khalti integration
     purchase_order_id = models.CharField(
@@ -36,5 +39,5 @@ class Transaction(models.Model):
     )
     khalti_pidx = models.CharField(max_length=255, unique=True, null=True, blank=True)
 
-    def __str__(self):
+    def _str_(self):
         return f"{self.transaction_type} - {self.status} - {self.amount}"

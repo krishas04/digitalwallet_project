@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate
 from .models import CustomUser
 
-
+#it inherits from UserCreationForm which handles checking that password1 and password2 match and Securely hash the user's password before saving it
 class SignUpForm(UserCreationForm):
     GENDER_CHOICES = [
         ("male", "Male"),
@@ -11,7 +11,6 @@ class SignUpForm(UserCreationForm):
         ("others", "Others"),
     ]
 
-    # Use 'full_name' instead of separate first/last name to match your image
     full_name = forms.CharField(
         max_length=60,
         required=True,
@@ -27,20 +26,22 @@ class SignUpForm(UserCreationForm):
         widget=forms.TextInput(),
     )
     gender = forms.ChoiceField(
-        choices=GENDER_CHOICES, required=True, widget=forms.RadioSelect()
+        choices=GENDER_CHOICES,
+        required=True, 
+        widget=forms.RadioSelect()
     )
     date_of_birth = forms.DateField(
-        required=True, widget=forms.SelectDateWidget(years=range(1950, 2007))
+        required=True, 
+        widget=forms.SelectDateWidget(years=range(1950, 2007))
     )
-
-    # Override password fields to match your design
     password1 = forms.CharField(
-        widget=forms.PasswordInput()
+        widget=forms.PasswordInput(attrs={'placeholder': ' '})
     )
     password2 = forms.CharField(
-        widget=forms.PasswordInput()
+        widget=forms.PasswordInput(attrs={'placeholder': ' '})
     )
 
+# inner Meta class is how you connect a form directly to a database model
     class Meta:
         model = CustomUser
         fields = (
@@ -60,6 +61,7 @@ class SignUpForm(UserCreationForm):
         self.fields["username"].widget = forms.HiddenInput()
         self.fields["username"].required = False
 
+#   to ensure that every email is unique in your database.
     def clean_email(self):
         email = self.cleaned_data.get("email")
         if CustomUser.objects.filter(email=email).exists():
@@ -94,10 +96,6 @@ class SignUpForm(UserCreationForm):
         return user
 
 
-# --- LoginForm (Updated for 2FA compatibility) ---
-# We now inherit from AuthenticationForm to work with the 2FA view.
-# We keep your logic for logging in with an email address instead of a username.
-
 
 class LoginForm(AuthenticationForm):
     # Override the default username field to accept an email
@@ -109,7 +107,7 @@ class LoginForm(AuthenticationForm):
     )
     password = forms.CharField(
         label="Password",
-        strip=False,
+        strip=False,    #doesn’t remove whitespace
         widget=forms.PasswordInput(
             attrs={
                 "autocomplete": "current-password",
@@ -118,33 +116,38 @@ class LoginForm(AuthenticationForm):
         ),
     )
 
+    # This code takes the submitted email, finds the corresponding CustomUser in the database, gets their actual username (user_obj.username), and puts it back into self.cleaned_data["username"].
     def clean(self):
         # The 'username' field from the form now contains the user's email
-        email = self.cleaned_data.get("username")
+        email = self.cleaned_data.get("username")   #gives the email the user typed, or None if missing.
         password = self.cleaned_data.get("password")
 
-        if email and password:
+        if email and password:  #if both email and password are valid
             # We need to find the user by email first, as 'authenticate' uses the username field
+
+            #try..except is try..catch in python
             try:
                 user_obj = CustomUser.objects.get(email=email)
                 # Then, we pass the actual username to the parent class's authentication logic
                 self.cleaned_data["username"] = user_obj.username
+
+                #It runs if no user has registered with the entered email.
             except CustomUser.DoesNotExist:
                 # Raise a generic error to avoid user enumeration
                 raise forms.ValidationError(
                     self.error_messages["invalid_login"],
                     code="invalid_login",
-                    params={"username": self.username_field.verbose_name},
+                    params={"username": self.username_field.verbose_name},  #message ko placeholder ma value fill grne ie Email
                 )
 
-        # Call the parent's clean method to perform the actual authentication
-        return super().clean()
+        # Call the parent's clean method to perform the actual authentication whether 
+        return super().clean()  # actual authentication takes place here as parent ko authenticate() call grxw
 
 
-# --- OTPForm (New form required for the 2FA process) ---
+# --- OTPForm (form required for the 2FA process) ---
 # This form is for the second step of the login.
 
-
+# This inherits from the most basic forms.Form.It's not connected to any database model. It's just a temporary container for one piece of data: the One-Time Password (OTP) that the user enters. 
 class OTPForm(forms.Form):
     otp = forms.CharField(
         max_length=6,

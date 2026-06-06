@@ -1,7 +1,6 @@
-
 {% extends "base_dashboard.html" %}
 {% load static %}
-{% load tz %} {# Add this at the top of your template file if it's not there #}
+{% load tz %} 
 
 {% block title %}Dashboard - WebPay{% endblock %}
 
@@ -21,33 +20,26 @@
 </div>
 
 <!-- Services Card -->
-<section class="dashboard-card">
+<section class="dashboard-card services-card-container"> <!-- ADDED a new class here -->
     <h2 class="card-title">Our Services</h2>
-    <div class="services-grid">
-        <a href="{% url 'transaction:load_money' %}" class="service-item">
-            <img src="{% static 'icons/loadmoney.jpg' %}" alt="Load Money" class="service-icon">
-            <span>Load money</span>
-        </a>
-        <a href="#" class="service-item">
-            <img src="{% static 'icons/transfermoney.jpg' %}" alt="Transfer Money" class="service-icon">
-            <span>Transfer money</span>
-        </a>
-        <a href="#" class="service-item">
-            <img src="{% static 'icons/billpayment.jpg' %}" alt="Bill Payment" class="service-icon">
-            <span>Bill payment</span>
-        </a>
-        <a href="#" class="service-item">
-            <img src="{% static 'icons/qrpayment.jpg' %}" alt="QR Payment" class="service-icon">
-            <span>QR payment</span>
-        </a>
-        <a href="#" class="service-item">
-            <img src="{% static 'icons/cashback.jpg' %}" alt="Cash Back" class="service-icon">
-            <span>Cash Back</span>
-        </a>
-    </div>
-    <div class="card-footer">
-         <a href="#"><button class="btn">Explore All Services</button></a>
+
+    <!-- This new wrapper helps with the layout -->
+    <div class="services-card-content">
+        <div class="services-grid">
+            <a href="{% url 'transaction:load_money' %}" class="service-item">
+                <img src="{% static 'icons/loadmoney.jpg' %}" alt="Load Money" class="service-icon">
+                <span>Load money</span>
+            </a>
+            <a href="{% url 'transaction:transfer_dispatcher' %}" class="service-item">
+                <img src="{% static 'icons/transfermoney.jpg' %}" alt="Transfer Money" class="service-icon">
+                <span>Transfer money</span>
+            </a>
         </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="{% url 'wallet:all_services' %}"><button class="btn">Explore All Services</button></a>
+    </div>
 </section>
 
 <!-- Transaction History Card -->
@@ -60,7 +52,9 @@
         </div>
     </div>
     <ul class="transaction-list">
-            {% for tx in recent_transactions %}
+
+        <!-- recent_transactons is in context processor so its value is automatically available  -->
+            {% for tx in recent_transactions %} 
                 <li class="transaction-item">
                 {% if tx.transaction_type == 'LOAD' %}
                     <img src="{% static 'icons/deposit.jpg' %}" alt="Deposit icon" class="transaction-icon">

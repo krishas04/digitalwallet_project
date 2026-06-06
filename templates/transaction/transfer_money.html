@@ -1,0 +1,38 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block extra_head %} {# Assuming base_dashboard.html has an 'extra_head' block in its <head> section #}
+<link rel="stylesheet" href="{% static 'css/styles_load_transfer.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content-card">
+    <h2 class="section-title">Transfer Money</h2>
+    <p>Send money to another user securely.</p>
+
+    <!-- Display any messages from the backend -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" >
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form action="{% url 'transaction:transfer_money_initiate' %}" method="POST" class="transfer-money-form">
+        {% csrf_token %}
+        <div class="form-group" style="margin-bottom: 20px;">
+            <label for="recipient-email" style="display: block; margin-bottom: 5px; font-weight: bold;">Recipient's Email</label>
+            <input type="email" id="recipient-email" name="recipient_email" placeholder="e.g., friend@example.com" required class="form-input"
+        </div>
+        <br>
+        <div class="form-group" style="margin-bottom: 20px;">
+            <label for="transfer-amount" style="display: block; margin-bottom: 5px; font-weight: bold;">Amount (Rs.)</label>
+            <input type="number" id="transfer-amount" name="amount" placeholder="e.g., 500" step="0.01" min="1" required class="form-input">
+        </div>
+        <button type="submit" class="btn" >
+            Transfer Now
+        </button>
+    </form>
+</div>
+{% endblock %}

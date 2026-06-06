@@ -61,6 +61,11 @@ AUTH_USER_MODEL = "users.CustomUser"
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
+#session management
+SESSION_COOKIE_AGE = 3600  # 60 minutes
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True # Optional but recommended
+
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",  # added
     "django.middleware.security.SecurityMiddleware",
@@ -101,14 +106,13 @@ WSGI_APPLICATION = "digitalwallet.wsgi.application"
 
 # Email Configuration for 2FA
 # the new SMTP settings using app passwords
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"  # NEW
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True  # For secure connection
 EMAIL_HOST_USER = os.getenv("EMAIL_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # Optional: Set a default from email
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -145,7 +149,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = 'Asia/Kathmandu'
 
 USE_I18N = True
 
@@ -181,10 +185,3 @@ MESSAGE_TAGS = {
     messages.ERROR: "error",
 }
 
-# Set the time zone for your project
-TIME_ZONE = 'Asia/Kathmandu'
-
-USE_I18N = True
-
-# IMPORTANT: Make sure this is True
-USE_TZ = True 

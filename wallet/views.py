@@ -10,8 +10,7 @@ from transaction.models import Transaction
 from .models import Wallet
 
 
-
-# --- VIEWS FOR STATIC PAGES (UNCHANGED) ---
+# --- VIEWS FOR STATIC PAGES  ---
 def index(request):
     return render(request, "wallet/index.html")
 
@@ -30,12 +29,18 @@ def policies(request):
 def help(request):
     return render(request, "wallet/help.html")
 
-
-# --- CORE APPLICATION VIEWS (CORRECTED) ---
-
 def support_view(request):
     return render(request, "wallet/support.html")
+
+
+
+# --- CORE APPLICATION VIEWS ---
 
 @login_required
 def dashboard_view(request):
     return render(request, "wallet/dashboard.html", {"user": request.user})
+
+@login_required
+def all_services_view(request):
+    """Renders the dedicated page listing all user services."""
+    return render(request, "wallet/all_services.html")

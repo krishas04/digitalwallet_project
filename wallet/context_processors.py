@@ -8,10 +8,8 @@ def wallet_context(request):
 
     if request.user.is_authenticated:
         try:
-            # This part is correct
             wallet_balance = request.user.wallet.balance
             
-            # --- FIX IS HERE ---
             # Follow the relationship from Transaction -> wallet -> user
             recent_transactions = Transaction.objects.filter(
                 wallet__user=request.user

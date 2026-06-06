@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views
-from transaction.views import khalti_payment_callback  # Import the callback view
 
 app_name = "wallet"
 
@@ -13,5 +12,5 @@ urlpatterns = [
     path("help/", views.help, name="help"),
     path("dashboard/", views.dashboard_view, name="dashboard"),
     path("support/", views.support_view, name="support"),
-
+    path("all-services/", views.all_services_view, name="all_services"),
 ]

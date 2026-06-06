@@ -2,9 +2,6 @@
 from django.db import models
 from django.conf import settings
 
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
 from decimal import Decimal
 
 class Wallet(models.Model):
@@ -14,9 +11,4 @@ class Wallet(models.Model):
     def __str__(self):
         return f"{self.user.username}'s Wallet"
 
-# Signal to create a wallet automatically when a new user signs up
-@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def create_user_wallet(sender, instance, created, **kwargs):
-    if created:
-        Wallet.objects.create(user=instance)
 

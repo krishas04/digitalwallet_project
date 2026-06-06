@@ -28,31 +28,12 @@ body{
     overflow: hidden; /* Prevents scrollbars on the main body */
 }
 
+
 /* Header Elements */
 .logo-image {
     height: 30px;
 }
-.search-bar {
-    display: flex;
-}
-.search-bar input {
-    padding: 6px 5px;
-    border: 1px solid #b0c0b1;
-    border-right: none;
-    min-width: 350px;
-    font-size: 0.9em;
-    height: 30px;
-}
-.search-bar button {
-    padding: 6px 5px;
-    border: 1px solid #b0c0b1;
-    background-color: white;
-    cursor: pointer;
-    
-}
-.search-bar img{
-    height: 20px;
-}
+
 .user-menu {
     display: flex;
     align-items: center;
@@ -195,32 +176,46 @@ body{
 .btn:hover{
     background-color: #558d57;
 }
-/* Services Card */
+/* Services card*/
+section.dashboard-card.services-card-container {
+    display: flex;
+    flex-direction: column;
+}
+.services-card-content {
+    flex-grow: 1;
+}
 .services-grid {
     display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
-    text-align: center;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 40px;
+    padding-bottom: 20px;
 }
 .service-item {
-    text-decoration: none;
-    color: #333;
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-decoration: none;
+    color: #333;
     gap: 10px;
-    width: 100px; /* Gives each item a consistent width */
+    min-width: 100px;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
 }
-.service-item img {
-    height: 48px; /* Control icon size */
+.service-item:hover {
+    background-color: #f5f5f5;
+}
+.service-item .service-icon {
+    height: 48px;
     width: 48px;
     object-fit: contain;
 }
 .service-item span {
     font-weight: 500;
     font-size: 0.9em;
+    white-space: nowrap;
 }
-
 /* Transaction History Card */
 .transaction-header {
     display: flex;
@@ -291,7 +286,11 @@ body{
 }
 .status-failed {
     background-color: #ffebee;
-    color: #d32f2f;
+    color: crimson;
+}
+.status-pending{
+    background-color: #f8f0b1;
+    color: #dace23;
 }
 
 /* Special Offer Card */
@@ -324,32 +323,22 @@ body{
     height: auto;
 }
 
-/* Button Styles */
-.btn {
-    display: inline-block;
-    padding: 10px 25px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: 600;
-    transition: all 0.2s ease;
-}
-.btn-green-outline {
-    background-color: transparent;
-    border: 2px solid #4CAF50;
-    color: #4CAF50;
-}
-.btn-green-outline:hover {
-    background-color: #4CAF50;
-    color: #fff;
-}
-.transaction-details {
-    display: block;
-    padding: 11px 20px;
-    margin: 5px 15px;
-    text-decoration: none;
-    font-size: 0.9em;
-    background-color: #ececec;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
-}
+/* pagination */
+.pagination-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 15px;
+      gap: 10px;
+    }
+.page-link {
+      background-color:  #b0dbb2;
+      color: black;
+      font-weight: 500;
+      padding: 6px 12px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+.page-link:hover { background-color: #558d57 ; }
+.current-page-info { font-weight: 500; color: grey; }
